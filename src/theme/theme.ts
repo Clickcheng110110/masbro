@@ -4,10 +4,8 @@ import { styles } from "./style";
 const themeConfig = {
   colors: {
     black: {
-      "600": "rgba(24, 23, 39, 0.7)",
-      "500": "rgba(24, 23, 39, 1)",
-      "100": "rgba(24, 23, 39, 1)",
-      "70": "rgba(24, 23, 39, 0.7)",
+      "100": "rgba(0,0,0, 1)",
+      "70": "rgba(0,0,0, 0.7)",
       "60": "rgba(0, 0, 0, 0.6)",
       "30": "rgba(0, 0, 0, 0.3)",
       "40": "rgba(0, 0, 0, 0.4)",
@@ -33,7 +31,7 @@ const themeConfig = {
       "700": "#2A2941",
     },
     gold: {
-      "100": "rgba(24, 23, 39, 0.7)",
+      "100": "rgba(0,0,0, 0.7)",
       "200": "#A98849",
       "500": "linear-gradient(180deg, #BBDFF1 0%, #C4A9F3 100%)",
       "600": "linear-gradient(180deg, #BBDFF1 20%, #C4A9F3 80%)",

@@ -1,15 +1,14 @@
-import { Theme } from '@chakra-ui/react';
+import { Theme } from "@chakra-ui/react";
 
-
-export const styles: Theme['styles'] = {
+export const styles: Theme["styles"] = {
   global: (props) => {
     return {
-      'html, body': {
-        bgColor: props.theme.colors.black['500'],
-        color: props.theme.colors.white['100'],
+      "html, body": {
+        bgColor: props.theme.colors.black["100"],
+        color: props.theme.colors.white["100"],
       },
       a: {
-        color: props.colorMode === 'dark' ? 'white.100' : 'white.100',
+        color: props.colorMode === "dark" ? "white.100" : "white.100",
       },
     };
   },

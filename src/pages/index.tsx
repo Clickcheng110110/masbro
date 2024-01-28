@@ -1,4 +1,8 @@
 import { Flex } from "@chakra-ui/react";
+import BegWap from "@/components/Home/BegWap";
+import BegOkenomis from "@/components/Home/BegOkenomis";
+import Begger from "@/components/Home/Begger";
+import BigInt from "@/components/Home/BigInt";
 
 export default function Home() {
   return (
@@ -7,6 +11,12 @@ export default function Home() {
       justifyContent="center"
       alignItems="center"
       as="main"
-    ></Flex>
+    >
+      <Begger />
+      <BegWap />
+
+      <BigInt />
+      <BegOkenomis />
+    </Flex>
   );
 }

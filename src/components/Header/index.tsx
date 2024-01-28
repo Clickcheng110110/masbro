@@ -23,7 +23,6 @@ import logo from "@/assets/images/logo.png";
 import { useContractsContext } from "@/context/ContractsContext";
 import { useQuery } from "@tanstack/react-query";
 import { ethers } from "ethers";
-import Link from "next/link";
 
 export interface LinkItem {
   label: string;
@@ -143,23 +142,25 @@ function Index() {
         zIndex={99}
         position="fixed"
         width="100%"
-        paddingTop="40px"
-        // bgColor="blue.500"
       >
         <Flex
           justify="space-between"
           alignItems="center"
-          height={{ base: px2vw(53), md: "76px" }}
-          maxWidth={"1400px"}
+          padding="20px"
+          maxWidth={"1440px"}
           margin="0 auto"
         >
-          {/* <Image
-            onClick={() => {
-              router.push("/");
-            }}
-            src={logo}
-            width={{ base: px2vw(34), md: "68px" }}
-          /> */}
+          <Flex justifyContent="center" alignItems="center" gap="12px">
+            <Image
+              onClick={() => {
+                router.push("/");
+              }}
+              src={logo}
+              width={{ base: px2vw(34), md: "36px" }}
+            />
+            <Text fontSize="24px">Bagger</Text>
+          </Flex>
+
           <Stack direction="row" spacing="70px" alignItems="center">
             {render()}
           </Stack>

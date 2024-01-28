@@ -110,13 +110,15 @@ function Index() {
       </Text>
       <Flex>
         <Text fontSize="32px" fontWeight="400">
-          10,000 lucky guys will be able to claim till{" "}
+          10,000 lucky guys will be able to claim till
         </Text>
+        &nbsp; &nbsp;
         <Text color="#FFC300" fontSize="32px" fontWeight="400">
           18:23
         </Text>
       </Flex>
       <Flex
+        zIndex={10}
         marginTop="80px"
         w="600px"
         h="168px"

@@ -9,12 +9,6 @@ import {
   useOutsideClick,
 } from "@chakra-ui/react";
 import px2vw from "@/theme/utils/px2vw";
-// import { useToggle } from 'react-use'
-
-// import px2vw from "@/utils/px2vw";
-
-// import triangleIc from "@/assets/svgs/triangle.svg";
-import { useToggle } from "usehooks-ts";
 
 import triangleIc from "@/assets/images/blueArrow.svg";
 

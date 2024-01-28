@@ -22,21 +22,10 @@ import { ContractsProvider } from "@/context/ContractsContext";
 
 import "react-toastify/dist/ReactToastify.css";
 import "@/styles/globals.css";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { isDev } from "@/utils/request";
 
 export const supportChains = isDev ? [bsc, bscTestnet] : [bsc];
-
-// export const supportChains = [bscTestnet];
-const notShowHeaderPaths = [
-  "/synthesisDetail",
-  "/personal/operation",
-  "/personal/reward",
-  "/personal/teamDetail",
-  "/personal/depositDetail",
-  "/manage/removeBind",
-];
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   supportChains,
@@ -70,11 +59,7 @@ const config = createConfig({
 });
 
 function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
   const { i18n } = useTranslation();
-
-  const isShowHeader =
-    notShowHeaderPaths.findIndex((item) => item === router.pathname) < 0;
 
   useEffect(() => {
     if (i18n.language === "en") {
@@ -96,19 +81,16 @@ function App({ Component, pageProps }: AppProps) {
           <ChakraProvider theme={theme}>
             <ConfigProvider>
               <ContractsProvider>
-                {isShowHeader ? <Header<{ type: any }> isTp={true} /> : <></>}
+                <Header></Header>
 
                 <Box
                   margin="0 auto"
                   maxWidth="1920px"
                   minWidth={{ base: "100%", md: "1440px" }}
                 >
-                  <Box
-                    paddingTop={isShowHeader ? "80px" : "0px "}
-                    minHeight="100vh"
-                  >
+                  <Box minHeight="100vh">
                     <Component {...pageProps} />
-                    {isShowHeader ? <Footer /> : <></>}
+                    <Footer />
                   </Box>
                 </Box>
                 <ToastContainer className="toast-custom" />

@@ -16,16 +16,10 @@ import {
 
 import * as allChains from "wagmi/chains";
 import { supportChains } from "@/pages/_app";
-import { OperationVerifyStatus, operateList } from "@/apis/v2";
-import InfoBox, { toastOption } from "@/components/TransToast";
-import { toast } from "react-toastify";
-import { portalErrorTranslation, sleep } from "@/utils/common";
 import { isDev } from "@/utils/request";
 
 export type UnwrapPromise<T> = T extends Promise<infer U> ? U : never;
 export type IConfigContext = Partial<ReturnType<typeof useConfig>>;
-
-const message = "Operation Verify";
 
 export const ConfigContext = createContext<IConfigContext>({});
 
@@ -50,45 +44,6 @@ export function useConfig() {
     : isDev
     ? config[bscTestnet.id]
     : config[bsc.id];
-
-  const handleSignFunction = async (
-    tokenId: number,
-    status: OperationVerifyStatus
-  ) => {
-    if (!address) return null;
-    const ethereum = (window as any).ethereum;
-    const currentTime = new Date().getTime();
-    await ethereum.enable();
-
-    const newMessage = `${message},tokenId:${tokenId},time:${currentTime}`;
-
-    const sign = await ethereum.request({
-      method: "personal_sign",
-      params: [newMessage, address],
-    });
-
-    const res: any = await operateList({
-      address: address.toLowerCase(),
-      sign,
-      message: newMessage,
-      tokenId,
-      status,
-    });
-    if (res?.msg || res?.data === false) {
-      toast(
-        (props) => {
-          return <InfoBox type="error" {...props} />;
-        },
-        {
-          ...toastOption,
-          data: portalErrorTranslation("卡已被其他居民锁定"),
-        }
-      );
-      throw new Error("卡已被其他居民锁定");
-    }
-
-    return res;
-  };
 
   useEffect(() => {
     const getSignerAndProvider = async () => {
@@ -127,7 +82,6 @@ export function useConfig() {
     isSupportChain,
     connect,
     disconnect,
-    handleSignFunction,
   };
 
   return value;

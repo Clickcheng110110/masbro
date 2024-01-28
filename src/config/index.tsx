@@ -1,7 +1,5 @@
 import { bscTestnet, bsc } from "viem/chains";
 import { Chain } from "wagmi";
-import ASTRToken from "@/assets/images/ASTRToken.png";
-import USDTToken from "@/assets/images/USDTToken.png";
 
 export enum CoinEnum {
   "ASTR-USDT" = "ASTR-USDT",
@@ -68,8 +66,8 @@ const config: Record<Chain["id"], IConfig> = {
     stakePools: [
       {
         name: CoinEnum["ASTR-USDT"],
-        icon1: ASTRToken,
-        icon2: USDTToken,
+        icon1: "",
+        icon2: "",
         token: "0x78c9Fc8891A0623C4e4d31A53d56cf8E761CafD9",
         priceCategory: PriceCate.UniswapV2,
         decimals: 18,
@@ -95,8 +93,8 @@ const config: Record<Chain["id"], IConfig> = {
     stakePools: [
       {
         name: CoinEnum["ASTR-USDT"],
-        icon1: ASTRToken,
-        icon2: USDTToken,
+        icon1: "",
+        icon2: "",
         token: "0xfa80b6d671B9c4322cD34AD6C8F79B3494A3e310",
         priceCategory: PriceCate.UniswapV2,
         decimals: 18,

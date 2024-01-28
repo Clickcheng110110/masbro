@@ -1,4 +1,4 @@
-import { Dispatch, useState } from "react";
+import { Dispatch } from "react";
 import BaseButton from "../BaseButton";
 
 import px2vw from "@/theme/utils/px2vw";

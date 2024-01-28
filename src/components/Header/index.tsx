@@ -120,7 +120,7 @@ function Index() {
               src={logo}
               width={{ base: px2vw(34), md: "36px" }}
             />
-            <Text fontSize="24px">Bagger</Text>
+            <Text fontSize="24px">Beggar</Text>
           </Flex>
 
           <Stack direction="row" spacing="40px" alignItems="center">

@@ -152,3 +152,9 @@ a {
     color-scheme: dark;
   }
 }
+
+.stroke{
+  color: #FFC300;
+  -webkit-text-stroke-width: 10px;
+  -webkit-text-stroke-color: #C43103;
+}

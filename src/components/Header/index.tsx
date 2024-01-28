@@ -108,7 +108,7 @@ function Index() {
         <Flex
           justify="space-between"
           alignItems="center"
-          padding="20px"
+          padding="20px  110px 20px 107px"
           maxWidth={"1440px"}
           margin="0 auto"
         >

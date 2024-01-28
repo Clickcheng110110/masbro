@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'VonwaonBitmap';
+  src: url('./fonts/VonwaonBitmap-16pxLite.ttf' ) format('truetype');
+}
+
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;

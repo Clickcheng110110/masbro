@@ -79,6 +79,7 @@ function Index() {
       return (
         <Text
           height="27px"
+          fontSize="24px"
           textStyle="normal"
           onClick={() => {
             handleLink(item);

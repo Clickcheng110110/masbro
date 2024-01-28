@@ -2,7 +2,7 @@ import { useConfigContext } from "@/context/ConfigContext";
 import px2vw from "@/theme/utils/px2vw";
 import { Button, ButtonProps } from "@chakra-ui/react";
 import React from "react";
-import ConnectModalContent from "../Modals/ConnectModalContent";
+// import ConnectModalContent from "../Modals/ConnectModalContent";
 import useModal from "@/hooks/useModal";
 import { useTranslation } from "next-i18next";
 
@@ -19,12 +19,12 @@ function Index({
 }: BaseButtonProps) {
   const { isConnected } = useConfigContext();
   const { t } = useTranslation();
-  const [ConnectModal, connectModalStatus] = useModal(ConnectModalContent);
+  // const [ConnectModal, connectModalStatus] = useModal(ConnectModalContent);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (!isConnected) {
-      connectModalStatus.onOpen();
-      return;
-    }
+    // if (!isConnected) {
+    //   connectModalStatus.onOpen();
+    //   return;
+    // }
     onClick?.(e);
   };
   return (
@@ -63,7 +63,7 @@ function Index({
       >
         {needLogin && !isConnected ? t("Login") : children}
       </Button>
-      {ConnectModal}
+      {/* {ConnectModal} */}
     </>
   );
 }

@@ -8,22 +8,20 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { buttonHover } from "@/theme/utils/style";
-import useModal from "@/hooks/useModal";
 
+import { buttonHover } from "@/theme/utils/style";
+import { useContractsContext } from "@/context/ContractsContext";
 import px2vw from "@/theme/utils/px2vw";
-import { ConfigContext } from "@/context/ConfigContext";
-import { formatAddress } from "@/utils/common";
 import { useToggle } from "usehooks-ts";
 
 import logo from "@/assets/images/logo.png";
-
-import { useContractsContext } from "@/context/ContractsContext";
-import { useQuery } from "@tanstack/react-query";
-import { ethers } from "ethers";
-
+import connect from "@/assets/images/connect.png";
+import { ConfigContext } from "@/context/ConfigContext";
+import BaseButton from "../BaseButton";
 export interface LinkItem {
   label: string;
   path: string;
@@ -36,59 +34,23 @@ function Index() {
   const router = useRouter();
   const toast = useToast();
   const [isOpen, toggle] = useToggle(false);
-  const { t } = useTranslation(["common"]);
-  const { userBindContact } = useContractsContext();
-  const { address, connector } = useContext(ConfigContext);
-
-  const userbindsStatus = useQuery(
-    ["userbinds", address, userBindContact?.address],
-    async ({ queryKey }) => {
-      if (!queryKey[1]) return 1;
-      if (!queryKey[2]) return 1;
-      const res = await getUserBinds(queryKey[1]);
-
-      if (res === ethers.constants.AddressZero) {
-        return null;
-      }
-      return res;
-    },
-    {
-      enabled: !!address && !!userBindContact?.address,
-    }
-  );
-
-  const getUserBinds = async (address: string) => {
-    try {
-      const res = await userBindContact?.userBinds(address);
-      return res;
-    } catch (error) {
-      return 1;
-    }
-  };
 
   const links: LinkItem[] = [
     {
-      label: "NFT交易市场",
+      label: "Twitter",
       path: "/market",
       isLink: false,
       isDisabled: false,
     },
     {
-      label: "NFT碎片合卡",
+      label: "Telegram",
       path: "/synthesis",
       isLink: false,
       isDisabled: false,
     },
     {
-      label: "我的NFT",
+      label: "Doc",
       path: "/myNFT",
-      isLink: false,
-      isDisabled: false,
-    },
-
-    {
-      label: "LP质押",
-      path: "/lp",
       isLink: false,
       isDisabled: false,
     },
@@ -161,8 +123,9 @@ function Index() {
             <Text fontSize="24px">Bagger</Text>
           </Flex>
 
-          <Stack direction="row" spacing="70px" alignItems="center">
+          <Stack direction="row" spacing="40px" alignItems="center">
             {render()}
+            <Image w="126px" h="40px" _hover={buttonHover} src={connect} />
           </Stack>
         </Flex>
       </Box>

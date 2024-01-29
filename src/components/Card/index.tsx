@@ -8,36 +8,44 @@ export interface Props {
 
 function Index({ title, context }: Props) {
   return (
-    <Box
-      w="479px"
-      h="154px"
-      flex-shrink="0"
-      background="rgba(255, 195, 0, 0.1)"
-    >
-      <Flex>
-        <Text
-          fontSize="24px"
-          fontStyle="normal"
-          lineHeight="normal"
-          fontWeight="400"
-          text-align="center"
-          color="#FFF"
-        >
-          {title}
-        </Text>
-      </Flex>
-
-      <Text
-        fontSize="40px"
-        fontStyle="normal"
-        lineHeight="normal"
-        fontWeight="400"
-        color="#FFC300"
-        text-align="center"
+    <Flex alignItems="center">
+      <Box
+        w="479px"
+        h="154px"
+        flex-shrink="0"
+        background="rgba(255, 195, 0, 0.1)"
       >
-        {context}
-      </Text>
-    </Box>
+        <Flex
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          w="479px"
+          h="154px"
+        >
+          <Text
+            fontSize="24px"
+            fontStyle="normal"
+            lineHeight="normal"
+            fontWeight="400"
+            color="#FFF"
+          >
+            {title}
+          </Text>
+
+          <Text
+            marginTop="30px"
+            fontSize="40px"
+            fontStyle="normal"
+            lineHeight="normal"
+            fontWeight="400"
+            color="#FFC300"
+          >
+            {context}
+          </Text>
+        </Flex>
+      </Box>
+    </Flex>
+
   );
 }
 

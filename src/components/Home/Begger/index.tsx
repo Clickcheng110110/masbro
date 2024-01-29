@@ -10,7 +10,20 @@ interface TokenProps {
 }
 
 const Token = ({ name }: TokenProps) => {
-  return <Box w="36px" h="20px"></Box>;
+  return (
+    <Box
+      position="relative"
+      padding="2px 4px"
+      bg="#fff"
+      color="#000"
+      fontSize="16px"
+      lineHeight="16px"
+      fontWeight="400"
+    >
+      <Box position="absolute" right="0" bottom="0" w="2px" h="2px" bg="#000" />
+      {name}
+    </Box>
+  );
 };
 
 function Index() {
@@ -81,6 +94,39 @@ function Index() {
         >
           Eat Points Save Pacman
         </Text>
+      </Flex>
+      <Flex
+        marginTop="460px"
+        gap="8px"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Flex gap="16px">
+          <Token name="MANTA"></Token>
+          <Token name="LOG"></Token>
+          <Token name="BTC"></Token>
+          <Token name="ETH"></Token>
+          <Token name="ETH"></Token>
+        </Flex>
+        <Flex gap="16px">
+          <Token name="MANTA"></Token>
+          <Token name="LOG"></Token>
+          <Token name="BTC"></Token>
+          <Token name="ETH"></Token>
+        </Flex>
+        <Flex gap="16px">
+          <Token name="MANTA"></Token>
+          <Token name="LOG"></Token>
+          <Token name="BTC"></Token>
+        </Flex>
+        <Flex gap="16px">
+          <Token name="MANTA"></Token>
+          <Token name="LOG"></Token>
+        </Flex>
+        <Flex gap="16px">
+          <Token name="MANTA"></Token>
+        </Flex>
       </Flex>
     </Flex>
   );

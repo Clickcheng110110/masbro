@@ -2,7 +2,7 @@ import React from "react";
 import { checkText } from "@/utils/common";
 import { Input, InputProps } from "@chakra-ui/react";
 
-export interface IProps extends InputProps {
+export interface BaseInputProps extends InputProps {
   valChange?: (val: string) => void;
   decimal?: number;
 }

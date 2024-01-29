@@ -1,27 +1,103 @@
 import React, { Component } from "react";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, SimpleGrid } from "@chakra-ui/react";
 import title from "@/assets/images/BEG-ROADMAP.png";
+import back from "@/assets/images/BG-RM-BG.png";
 import Card from "@/components/Card";
 
 const card_1 = {
   title: "Phase 1",
   context: "MEME",
 };
+const card_2 = {
+  title: "Phase 2",
+  context: "Eat Shit Points",
+};
+const card_3 = {
+  title: "Phase 3",
+  context: "Save Pacman",
+};
+const card_4 = {
+  title: "Phase 4",
+  context: "Beg for Everything",
+};
 
 function Index() {
   return (
-    <Flex w="1212px" h="573px">
+    <Flex
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      position="relative"
+    >
       <Image
         zIndex={0}
-        top="2439px"
         w="440px"
         h="87px"
-        left="500px"
         src={title}
         alt="title"
+        marginTop="-55px"
       />
-        <Card title={card_1.title} context={card_1.context}></Card>   {" "}
+      <Flex
+        w="1212px"
+        h="573px"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        position="relative"
+        marginTop="-40px"
+      >
+        <Image
+          position="absolute"
+          left="0"
+          right="0"
+          w="100%"
+          h="100%"
+          opacity="0.7"
+          src={back}
+        />
+
+        <SimpleGrid
+          columns={2}
+        >
+          <Flex
+            paddingRight="29px"
+            paddingBottom="26px"
+            boxSize="border-box"
+            borderRight="1px dotted rgb(80,80,80)"
+            borderBottom="1px dotted rgb(80,80,80)"
+          >
+            <Card title={card_1.title} context={card_1.context}></Card>
+          </Flex>
+          <Flex
+            paddingLeft="29px"
+            paddingBottom="26px"
+            boxSize="border-box"
+            borderBottom="1px dotted rgb(80,80,80)"
+          >
+            <Card title={card_2.title} context={card_2.context}></Card>
+          </Flex>
+          <Flex
+            paddingRight="29px"
+            paddingTop="26px"
+            boxSize="border-box"
+            borderRight="1px dotted rgb(80,80,80)"
+          >
+            <Card title={card_3.title} context={card_3.context}></Card>
+          </Flex>
+
+          <Flex
+            paddingLeft="29px"
+            paddingTop="26px"
+            boxSize="border-box"
+          >
+            <Card title={card_4.title} context={card_4.context}></Card>
+          </Flex>
+
+        </SimpleGrid>
+
+      </Flex>
     </Flex>
+
   );
 }
 

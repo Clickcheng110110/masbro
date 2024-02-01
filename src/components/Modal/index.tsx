@@ -15,6 +15,7 @@ import px2vw from "@/theme/utils/px2vw";
 import { buttonHover } from "@/theme/utils/style";
 
 import close from "@/assets/images/close.svg";
+import modalBg from "@/assets/images/modal-bg.png";
 
 // import { buttonHover } from '@/theme/utils';
 export interface IModalProps extends ModalProps {
@@ -48,7 +49,7 @@ function Index({
   isCentered = true,
   children,
   width = 340,
-  padding = 20,
+  padding = 32,
   bg = "",
   hasTopRightCloseButton = true,
   hasBottomRightCloseButton = false,
@@ -69,15 +70,16 @@ function Index({
       <ModalContent
         zIndex={9999}
         position="relative"
-        // 下面这一行在生产环境会导致modal 没垂直居中， 在顶上显示， 但是在开发环境没问题
-        // 先注释掉
         // marginTop={{ base: 'inherit', lg: 'inherit', xl: 'inherit' }}
-        background={bg || "linear-gradient(180deg, #313F46 0%, #3D354A 100%)"}
-        borderRadius="20px"
+        backgroundImage={bg || modalBg}
+        backgroundSize="100% 100%"
+        backgroundRepeat="no-repeat"
+        // borderRadius="20px"
         // boxShadow="0px 4px 20px rgba(6, 16, 43, 0.65)"
         w={{ base: "92vw", lg: width }}
         maxW="initial"
         maxH="100vh"
+        fontFamily="VonwaonBitmap"
         {...modalContentProps}
       >
         <ModalBody

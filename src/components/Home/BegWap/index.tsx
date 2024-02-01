@@ -19,11 +19,19 @@ import { useConfig, useConfigContext } from "@/context/ConfigContext";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { formatValue, fromWei, toWei } from "@/utils/common";
 import { buttonHover } from "@/theme/utils/style";
+import BigNumber from "bignumber.js";
+import useTransaction from "@/hooks/useTransaction";
+import useErc20 from "@/hooks/useErc20";
+import { useBalance } from "wagmi";
+import useModal from "@/hooks/useModal";
+import SlippageContent from "@/components/ModalContents/SlippageContent";
 
 export enum ModeEnum {
   ETH = "eth",
   BEGGAR = "beggar",
 }
+
+const ONE_HOUR = 60 * 60;
 
 function Index() {
   const { watch, reset, control, setValue } = useForm<
@@ -35,9 +43,44 @@ function Index() {
   const values = watch();
 
   const { routerV2Contract } = useContractsContext();
-  const { config } = useConfigContext();
+  const { config, address } = useConfigContext();
+  const { run, loading } = useTransaction(
+    routerV2Contract?.swapExactETHForTokens,
+    {
+      wait: true,
+    }
+  );
+  const {
+    run: swapExactTokensForETHRun,
+    loading: swapExactTokensForETHRunLoading,
+  } = useTransaction(routerV2Contract?.swapExactTokensForETH, {
+    wait: true,
+  });
 
+  const [isReverse, setIsReverse] = useState(false);
   const [mode, setMode] = useState<ModeEnum>(ModeEnum.ETH);
+  const [slippage, setSlippage] = useState(0.03);
+
+  const [SlippageModal, { onOpen: onSlippageModalOpen }] = useModal(
+    SlippageContent,
+    {
+      width: 496,
+    }
+  );
+
+  const {
+    balance: beggarBalance,
+    isEnough,
+    approveState,
+    getBalance,
+  } = useErc20({
+    tokenAddress: config?.beg as string,
+    approveTokenAddress: config?.routerV2 as string,
+  });
+
+  const { data: ethBalanceData, refetch: ethBalanceRefetch } = useBalance({
+    address: address,
+  });
 
   const getAmountsOut = async (amountIn: string) => {
     const formatAmountIn = toWei(amountIn)?.toString();
@@ -45,26 +88,69 @@ function Index() {
       config?.weth as string,
       config?.beg as string,
     ]);
-
     return amountOut;
   };
   const getAmountOutQuery = useQuery({
-    queryKey: ["getAmountOut", values.ETH],
-    queryFn: ({ queryKey }) => {
+    queryKey: ["getAmountOut", values.input, isReverse],
+    queryFn: async ({ queryKey }) => {
       if (!queryKey[1]) return null;
-      const res: any = getAmountsOut(queryKey[1] as string);
-      setValue("Beggar", fromWei(res?.[1]?.toString() as string)?.toString());
+      const res: any = await getAmountsOut(queryKey[1] as string);
+      const amountOutMin = new BigNumber(
+        res?.[isReverse ? 0 : 1]?.toString() as string
+      )
+        .multipliedBy(1 - slippage)
+        .toString();
+      setValue("output", fromWei(amountOutMin)?.toString());
       return res;
     },
   });
 
   const getAmountOutInitQuery = useQuery({
     queryKey: ["getAmountOutOnce"],
-    queryFn: () => {
-      const res: any = getAmountsOut("1");
+    queryFn: async () => {
+      const res: any = await getAmountsOut("1");
       return res;
     },
+    refetchInterval: 5000,
   });
+
+  const handleSwap = async () => {
+    try {
+      // await getAmountOutQuery.refetch();
+      const amountsOut = await getAmountsOut(values.input as string);
+      const amountOutMin = new BigNumber(
+        amountsOut?.[isReverse ? 0 : 1]?.toString() as string
+      )
+        .multipliedBy(1 - slippage)
+        .toFixed(0);
+      const toWeiInput = toWei(values.input as string)?.toString();
+      const deadline = Math.floor(Date.now() / 1000 + ONE_HOUR * 0.5);
+      if (isReverse) {
+        await swapExactTokensForETHRun(
+          toWeiInput,
+          amountOutMin,
+          [config?.beg as string, config?.weth as string],
+          address,
+          deadline
+        );
+      } else {
+        await run(
+          amountOutMin,
+          [config?.weth as string, config?.beg as string],
+          address,
+          deadline,
+          {
+            value: toWeiInput,
+          }
+        );
+      }
+      ethBalanceRefetch();
+      getBalance();
+      // console.log(res);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   const ethTransferBagger = formatValue(
     getAmountOutInitQuery?.data?.[1]?.toString() as string,
@@ -74,6 +160,30 @@ function Index() {
     getAmountOutInitQuery?.data?.[0]?.toString() as string,
     true
   );
+  console.log("beggarTransferEth", beggarTransferEth);
+  const isSwapLoading =
+    getAmountOutQuery?.isLoading || swapExactTokensForETHRunLoading || loading;
+  const isSwapDisabled =
+    !values.input ||
+    !values.output ||
+    !beggarBalance ||
+    !ethBalanceData?.formatted;
+
+  const ethFields = {
+    token: ETH,
+    tokenName: "ETH",
+    balance: ethBalanceData?.formatted as string,
+  };
+
+  const baggerFields = {
+    token: beggarToken,
+    tokenName: "Beggar",
+    balance: beggarBalance as string,
+  };
+
+  const inputFields = !isReverse ? ethFields : baggerFields;
+  const outputFields = !isReverse ? baggerFields : ethFields;
+  const shouldVerify = isReverse;
 
   return (
     <Flex
@@ -125,10 +235,24 @@ function Index() {
             >
               Slippage: 0.1%
             </Text>
-            <Image width="24px" height="24px" src={wapChange} />
+            <Image
+              onClick={() => {
+                onSlippageModalOpen();
+              }}
+              width="24px"
+              height="24px"
+              src={wapChange}
+              _hover={buttonHover}
+            />
           </Flex>
         </Flex>
-        <TokenInput control={control} title="You pay" token={ETH} name="ETH" />
+        <TokenInput
+          isShowMax
+          name="input"
+          control={control}
+          title="You pay"
+          {...inputFields}
+        />
         <Box h="6px" position="relative">
           <Flex
             justifyContent="center"
@@ -153,19 +277,24 @@ function Index() {
               bg="#191919"
             >
               <Image
+                onClick={() => {
+                  setIsReverse(!isReverse);
+                }}
                 width="20px"
                 height="12px"
                 transform="rotate(-45deg)"
                 src={tokenSelect}
+                _hover={buttonHover}
               />
             </Flex>
           </Flex>
         </Box>
         <TokenInput
+          name="output"
+          isReadOnly
           control={control}
           title="You receive"
-          token={beggarToken}
-          name="Beggar"
+          {...outputFields}
         />
         <Flex margin="24px 0" alignItems="center" gap="12px">
           {mode === ModeEnum.ETH ? (
@@ -188,9 +317,42 @@ function Index() {
             _hover={buttonHover}
           />
         </Flex>
-        <BaseButton colorType="white" bgImage={whiteButtonLongBg}>
-          Swap
-        </BaseButton>
+        {!isEnough && shouldVerify ? (
+          <BaseButton
+            onClick={() => {
+              approveState.run();
+            }}
+            needLogin
+            isLoading={approveState.loading}
+            colorType="white"
+            bgImage={whiteButtonLongBg}
+            _loading={{
+              bgImage: whiteButtonLongBg,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            Approve
+          </BaseButton>
+        ) : (
+          <BaseButton
+            onClick={handleSwap}
+            needLogin
+            isDisabled={isSwapDisabled}
+            isLoading={isSwapLoading}
+            colorType="white"
+            bgImage={whiteButtonLongBg}
+            _loading={{
+              bgImage: whiteButtonLongBg,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            Swap
+          </BaseButton>
+        )}
       </Flex>
       <Flex
         position="absolute"
@@ -202,6 +364,7 @@ function Index() {
         flexDirection="column"
         border="1px solid #FFF"
       ></Flex>
+      {SlippageModal}
     </Flex>
   );
 }

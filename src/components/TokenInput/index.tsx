@@ -2,21 +2,28 @@ import { Flex, Text, Image } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 import { Control, useController } from "react-hook-form";
-import { formatInputValue } from "@/utils/common";
+import { formatInputValue, formatValue } from "@/utils/common";
 import { debounce } from "lodash";
 import useDebounce from "@/hooks/useDebounce";
+import { buttonHover } from "@/theme/utils/style";
 
 export interface TokenInputProps extends BaseInputProps {
   title: string;
   token: string;
+  tokenName: string;
   name: string;
+  balance: string;
   control: Control;
+  isShowMax?: boolean;
 }
 function Index({
   title,
   token,
+  tokenName,
   name,
+  balance,
   control,
+  isShowMax = false,
   ...otherProps
 }: TokenInputProps) {
   const {
@@ -44,11 +51,32 @@ function Index({
     handleFormChange(inputValue);
   };
 
+  const handleMax = () => {
+    onChange?.(balance);
+  };
+
   return (
     <Flex padding="24px" flexDirection="column" bg="rgba(255, 255, 255, 0.1)">
-      <Text fontSize="16px" color="rgba(255, 255, 255, 0.3)">
-        {title}
-      </Text>
+      <Flex justifyContent="space-between">
+        <Text fontSize="16px" color="rgba(255, 255, 255, 0.3)">
+          {title}
+        </Text>
+        <Flex fontSize="16px" gap="12px">
+          <Text color="rgba(255, 255, 255, 0.3)">
+            My balance: {formatValue(balance)} {tokenName}
+          </Text>
+          {isShowMax && (
+            <Text
+              onClick={handleMax}
+              _hover={buttonHover}
+              color="rgba(255, 195, 0, 1)"
+            >
+              Max
+            </Text>
+          )}
+        </Flex>
+      </Flex>
+
       <Flex>
         <BaseInput
           value={newValue}
@@ -62,7 +90,7 @@ function Index({
         <Flex gap="12px" alignItems="center" justifyContent="center">
           <Image w="32px" h="32px" src={token} />
           <Text fontSize="32px" color="rgba(255, 255, 255, 1)">
-            {name}
+            {tokenName}
           </Text>
         </Flex>
       </Flex>

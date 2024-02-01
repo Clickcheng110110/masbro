@@ -257,7 +257,7 @@ export function formatTime(num: number) {
 
 export const formatInputValue = (value: string) => {
   // 去除开头多余的零
-  value = value.replace(/^0+/, "");
+  // value = value.replace(/^0+/, "");
 
   // 提取数字部分
   const regex = /^(\d+\.?\d*|\.\d*)/;

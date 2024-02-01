@@ -12,6 +12,9 @@ function Index({ value, valChange, decimal = 18, ...props }: BaseInputProps) {
     <Input
       variant="unstyled"
       value={value}
+      color="rgba(255, 255, 255,1)"
+      _placeholder={{ color: "rgba(255, 255, 255, 0.3)" }}
+      fontSize="40px"
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
         valChange && valChange(checkText(e.target.value, decimal) as string);
       }}

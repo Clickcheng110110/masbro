@@ -19,7 +19,6 @@ function useTransaction<Params = any, Response = any>(
   const callMethod = async (...fnArgs: any[]) => {
     setLoading(true);
     setError(null);
-    // console.log('fnArgs', fnArgs);
 
     try {
       const res: any = await method(...[...args, ...fnArgs]);

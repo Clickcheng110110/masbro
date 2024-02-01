@@ -22,14 +22,17 @@ function Index({
   onClick,
   ...props
 }: BaseButtonProps) {
-  const { isConnected } = useConfigContext();
+  const { isConnected, connectors, connect } = useConfigContext();
   const { t } = useTranslation();
   // const [ConnectModal, connectModalStatus] = useModal(ConnectModalContent);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    // if (!isConnected) {
-    //   connectModalStatus.onOpen();
-    //   return;
-    // }
+    if (!isConnected) {
+      // connectModalStatus.onOpen();
+      connect?.({
+        connector: connectors?.[0],
+      });
+      return;
+    }
     onClick?.(e);
   };
   return (
@@ -50,7 +53,7 @@ function Index({
         fontWeight="400"
         color={colorType === "white" ? "black.100" : "rgba(196, 49, 3, 1)"}
         _loading={{
-          bg: "blue.500",
+          bgImage: colorType === "white" ? whiteButtonBg : yellowButtonBg,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -70,7 +73,7 @@ function Index({
         }}
         {...props}
       >
-        {needLogin && !isConnected ? t("Login") : children}
+        {needLogin && !isConnected ? "Connect Wallet" : children}
       </Button>
       {/* {ConnectModal} */}
     </>

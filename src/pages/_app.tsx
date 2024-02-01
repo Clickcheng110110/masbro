@@ -1,6 +1,5 @@
 import { WagmiConfig, createConfig, configureChains } from "wagmi";
 
-import { bsc, bscTestnet } from "viem/chains";
 import { appWithTranslation, useTranslation } from "next-i18next";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";

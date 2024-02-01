@@ -55,7 +55,7 @@ export function useConfig() {
       );
 
       const provider = new ethers.providers.JsonRpcProvider(
-        allChains[isDev ? "bscTestnet" : "bsc"]?.rpcUrls?.default?.http[0]
+        blastSepolia?.rpcUrls?.default?.http[0]
       );
       const ethereumProvider = new ethers.providers.Web3Provider(
         (window as any).ethereum

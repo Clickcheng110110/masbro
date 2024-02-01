@@ -7,7 +7,7 @@ export interface BaseInputProps extends InputProps {
   decimal?: number;
 }
 
-function Index({ value, valChange, decimal = 18, ...props }: IProps) {
+function Index({ value, valChange, decimal = 18, ...props }: BaseInputProps) {
   return (
     <Input
       variant="unstyled"

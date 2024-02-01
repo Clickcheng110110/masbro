@@ -1,16 +1,6 @@
 import { createContext, useContext } from "react";
 import { useConfigContext } from "./ConfigContext";
-import {
-  Ido__factory,
-  Lp__factory,
-  MasterChief__factory,
-  UserBind__factory,
-  NftInfo__factory,
-  NftMarket__factory,
-  NftMerge__factory,
-  Erc20__factory,
-} from "@/contracts/interface";
-import { AwardCenter__factory } from "@/contracts/interface/factories/AwardCenter__factory";
+import { Factory__factory, RouterV2__factory } from "@/contracts/interface";
 
 export type IContractContext = Partial<ReturnType<typeof useContracts>>;
 export const ContractsContext = createContext<IContractContext>({});
@@ -19,45 +9,19 @@ export const useContracts = () => {
   const { config, signerOrProvider } = useConfigContext();
 
   if (!config || !signerOrProvider) return {};
-  const masterChiefContract = MasterChief__factory.connect(
-    config.masterChief,
+  const factoryContract = Factory__factory.connect(
+    config.factory,
     signerOrProvider
   );
 
-  const lscContract = Erc20__factory.connect(config.astr, signerOrProvider);
-  const lpContract = Lp__factory.connect(config.lp, signerOrProvider);
-  const idoContract = Ido__factory.connect(config.ido, signerOrProvider);
-  const userBindContact = UserBind__factory.connect(
-    config.userBind,
-    signerOrProvider
-  );
-  const awardCenterContract = AwardCenter__factory.connect(
-    config.awardCenter,
-    signerOrProvider
-  );
-
-  const nftContract = NftInfo__factory.connect(config.nft, signerOrProvider);
-
-  const nftMarketContract = NftMarket__factory.connect(
-    config.nftMarket,
-    signerOrProvider
-  );
-
-  const nftMergeContract = NftMerge__factory.connect(
-    config.nftMerge,
+  const routerV2Contract = RouterV2__factory.connect(
+    config.routerV2,
     signerOrProvider
   );
 
   return {
-    masterChiefContract,
-    lpContract,
-    idoContract,
-    lscContract,
-    userBindContact,
-    nftMarketContract,
-    nftContract,
-    nftMergeContract,
-    awardCenterContract,
+    factoryContract,
+    routerV2Contract,
   };
 };
 

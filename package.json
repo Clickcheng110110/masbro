@@ -10,7 +10,6 @@
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "typechain:generate": "typechain --target=ethers-v5 --out-dir src/contracts/interface 'src/contracts/abis/*.json'"
   },
-  
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/react": "^2.6.1",
@@ -33,11 +32,11 @@
     "next": "13.1.6",
     "next-i18next": "^13.2.2",
     "next-images": "^1.8.4",
-    "numbro": "^2.3.6",
+    "numbro": "^2.4.0",
     "prettier": "^2.8.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.47.0",
+    "react-hook-form": "^7.49.3",
     "react-i18next": "^12.3.1",
     "react-infinite-scroll-hook": "^4.1.1",
     "react-toastify": "^9.1.3",

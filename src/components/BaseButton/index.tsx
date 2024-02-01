@@ -6,14 +6,19 @@ import React from "react";
 import useModal from "@/hooks/useModal";
 import { useTranslation } from "next-i18next";
 
+import whiteButtonBg from "@/assets/images/white-button-bg.png";
+import yellowButtonBg from "@/assets/images/yellow-button-bg.png";
+
 export interface BaseButtonProps extends ButtonProps {
   needLogin?: boolean;
+  colorType?: "yellow" | "white";
 }
 
 function Index({
   children,
   isDisabled,
   needLogin = false,
+  colorType = "white",
   onClick,
   ...props
 }: BaseButtonProps) {
@@ -35,11 +40,15 @@ function Index({
         colorScheme="black"
         w="full"
         // boxShadow="inset 0px 0px 12px 1px #FFE178"
-        fontWeight="700"
         pos="relative"
-        h={{ base: px2vw(46), lg: "46px" }}
-        borderRadius={{ base: px2vw(20), lg: "20px" }}
+        h={{ base: px2vw(40), lg: "40px" }}
+        bgImage={colorType === "white" ? whiteButtonBg : yellowButtonBg}
+        bgSize={{ base: "100% 100%", lg: "100% 100%" }}
+        bgRepeat="no-repeat"
+        // borderRadius={{ base: px2vw(20), lg: "20px" }}
         fontSize={{ base: px2vw(24), lg: "24px" }}
+        fontWeight="400"
+        color={colorType === "white" ? "black.100" : "rgba(196, 49, 3, 1)"}
         _loading={{
           bg: "blue.500",
           display: "flex",

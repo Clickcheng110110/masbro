@@ -19,9 +19,10 @@ import px2vw from "@/theme/utils/px2vw";
 import { useToggle } from "usehooks-ts";
 
 import logo from "@/assets/images/logo.png";
-import connect from "@/assets/images/connect.png";
-import { ConfigContext } from "@/context/ConfigContext";
+import connectLogo from "@/assets/images/connect.png";
+import { ConfigContext, useConfigContext } from "@/context/ConfigContext";
 import BaseButton from "../BaseButton";
+import { formatAddress } from "@/utils/common";
 export interface LinkItem {
   label: string;
   path: string;
@@ -34,7 +35,9 @@ function Index() {
   const router = useRouter();
   const toast = useToast();
   const [isOpen, toggle] = useToggle(false);
+  const { address, connectors, connect } = useConfigContext();
 
+  console.log(address);
   const links: LinkItem[] = [
     {
       label: "Twitter",
@@ -78,7 +81,6 @@ function Index() {
     return links.map((item) => {
       return (
         <Text
-          height="27px"
           fontSize="24px"
           textStyle="normal"
           onClick={() => {
@@ -101,7 +103,7 @@ function Index() {
     <>
       <Box
         display={{ base: "none", md: "block" }}
-        bgColor={"black.500"}
+        bgColor={"black.100"}
         zIndex={99}
         position="fixed"
         width="100%"
@@ -126,7 +128,21 @@ function Index() {
 
           <Stack direction="row" spacing="40px" alignItems="center">
             {render()}
-            <Image w="126px" h="40px" _hover={buttonHover} src={connect} />
+            {address ? (
+              <BaseButton colorType="yellow">
+                {formatAddress(address)}
+              </BaseButton>
+            ) : (
+              <BaseButton
+                onClick={() => {
+                  connect?.({
+                    connector: connectors?.[0],
+                  });
+                }}
+              >
+                Connect Wallet
+              </BaseButton>
+            )}
           </Stack>
         </Flex>
       </Box>

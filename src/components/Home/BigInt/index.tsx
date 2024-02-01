@@ -56,12 +56,21 @@ function Index() {
           <Image w="120px" h="120px" src={intIcon1} marginRight="40px" />
           <Image w="184px" h="128px" src={intIcon2} />
 
-          <Image
+          <MotionImage
             position="absolute"
             left="280px"
             top="-75px"
             width="84px"
             height="88px"
+            initial={{
+              transform: "rotate(0deg)",
+            }}
+            animate={{
+              transform: "rotate(-45deg)",
+            }}
+            transition={{
+              duration: 1,
+            }}
             src={intIcon3}
           />
           {isShowAnimation ? (
@@ -76,15 +85,15 @@ function Index() {
                 position="absolute"
                 w="141px"
                 h="111px"
-                top="150px"
+                top="120px"
                 initial={{
                   left: 150,
                 }}
                 animate={{
-                  left: [0, 120, 40, 160, 200, 310, 260],
+                  left: [150, 0, 120, 40, 160, 170, 310, 260],
                 }}
                 transition={{
-                  duration: 6,
+                  duration: 7,
                   delay: 0,
                 }}
                 src={intBegger}
@@ -98,7 +107,7 @@ function Index() {
                 }}
                 icon={zk}
                 animate={{
-                  top: 200,
+                  top: 170,
                 }}
                 transition={{
                   duration: 1,
@@ -114,7 +123,7 @@ function Index() {
                   top: 0,
                 }}
                 animate={{
-                  top: 200,
+                  top: 170,
                 }}
                 transition={{
                   duration: 1,
@@ -130,7 +139,7 @@ function Index() {
                   top: 0,
                 }}
                 animate={{
-                  top: 200,
+                  top: 170,
                 }}
                 transition={{
                   duration: 1,
@@ -146,7 +155,7 @@ function Index() {
                   top: 0,
                 }}
                 animate={{
-                  top: 200,
+                  top: 170,
                 }}
                 transition={{
                   duration: 1,
@@ -157,12 +166,12 @@ function Index() {
               <BlockChain
                 position="absolute"
                 top="15px"
-                left="200px"
+                left="170px"
                 initial={{
                   top: 0,
                 }}
                 animate={{
-                  top: 200,
+                  top: 170,
                 }}
                 transition={{
                   duration: 1,
@@ -178,7 +187,7 @@ function Index() {
                   top: 0,
                 }}
                 animate={{
-                  top: 200,
+                  top: 170,
                 }}
                 transition={{
                   duration: 1,
@@ -194,7 +203,7 @@ function Index() {
                   top: 0,
                 }}
                 animate={{
-                  top: 200,
+                  top: 170,
                 }}
                 transition={{
                   duration: 1,
@@ -232,7 +241,7 @@ function Index() {
               <BlockChain
                 position="absolute"
                 top="15px"
-                left="200px"
+                left="170px"
                 icon={zkfair}
               />
               <BlockChain

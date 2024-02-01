@@ -17,6 +17,7 @@ import {
 import * as allChains from "wagmi/chains";
 import { supportChains } from "@/pages/_app";
 import { isDev } from "@/utils/request";
+import { blastSepolia } from "@/config/chains";
 
 export type UnwrapPromise<T> = T extends Promise<infer U> ? U : never;
 export type IConfigContext = Partial<ReturnType<typeof useConfig>>;
@@ -42,8 +43,8 @@ export function useConfig() {
       ? config?.[chain?.id]
       : null
     : isDev
-    ? config[bscTestnet.id]
-    : config[bsc.id];
+    ? config[blastSepolia.id]
+    : config[blastSepolia.id];
 
   useEffect(() => {
     const getSignerAndProvider = async () => {

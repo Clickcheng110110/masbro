@@ -28,7 +28,7 @@ export const portalErrorTranslation = (e: any) => {
 // format address
 export const formatAddress = (address?: string) => {
   return address
-    ? address.replace(address?.slice(5, address.length - 3), "...")
+    ? address.replace(address?.slice(6, address.length - 4), "...")
     : "--";
 };
 
@@ -254,3 +254,19 @@ export function formatTime(num: number) {
   if (!num) return "00";
   return num > 9 ? num : "0" + num;
 }
+
+export const formatInputValue = (value: string) => {
+  // 去除开头多余的零
+  value = value.replace(/^0+/, "");
+
+  // 提取数字部分
+  const regex = /^(\d+\.?\d*|\.\d*)/;
+  const matches = value.match(regex);
+  if (matches !== null) {
+    value = matches[0];
+  } else {
+    value = ""; // 如果没有匹配到数字部分，则设置为空字符串
+  }
+
+  return value;
+};

@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import begWap from "@/assets/images/begWap.png";
 import wapBg from "@/assets/images/wap-bg.png";
@@ -9,8 +9,72 @@ import TokenInput from "@/components/TokenInput";
 import ETH from "@/assets/images/ETH.png";
 import beggarToken from "@/assets/images/beggar-token.png";
 import tokenSelect from "@/assets/images/tokenSelect.svg";
+import change from "@/assets/images/change.svg";
+import whiteButtonLongBg from "@/assets/images/white-button-long-bg.png";
+
+import BaseButton from "@/components/BaseButton";
+import { useForm } from "react-hook-form";
+import { useContracts, useContractsContext } from "@/context/ContractsContext";
+import { useConfig, useConfigContext } from "@/context/ConfigContext";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { formatValue, fromWei, toWei } from "@/utils/common";
+import { buttonHover } from "@/theme/utils/style";
+
+export enum ModeEnum {
+  ETH = "eth",
+  BEGGAR = "beggar",
+}
 
 function Index() {
+  const { watch, reset, control, setValue } = useForm<
+    Record<string, number | string>
+  >({
+    // defaultValues: formDefaultValues,
+  });
+
+  const values = watch();
+
+  const { routerV2Contract } = useContractsContext();
+  const { config } = useConfigContext();
+
+  const [mode, setMode] = useState<ModeEnum>(ModeEnum.ETH);
+
+  const getAmountsOut = async (amountIn: string) => {
+    const formatAmountIn = toWei(amountIn)?.toString();
+    const amountOut = await routerV2Contract?.getAmountsOut(formatAmountIn, [
+      config?.weth as string,
+      config?.beg as string,
+    ]);
+
+    return amountOut;
+  };
+  const getAmountOutQuery = useQuery({
+    queryKey: ["getAmountOut", values.ETH],
+    queryFn: ({ queryKey }) => {
+      if (!queryKey[1]) return null;
+      const res: any = getAmountsOut(queryKey[1] as string);
+      setValue("Beggar", fromWei(res?.[1]?.toString() as string)?.toString());
+      return res;
+    },
+  });
+
+  const getAmountOutInitQuery = useQuery({
+    queryKey: ["getAmountOutOnce"],
+    queryFn: () => {
+      const res: any = getAmountsOut("1");
+      return res;
+    },
+  });
+
+  const ethTransferBagger = formatValue(
+    getAmountOutInitQuery?.data?.[1]?.toString() as string,
+    true
+  );
+  const beggarTransferEth = formatValue(
+    getAmountOutInitQuery?.data?.[0]?.toString() as string,
+    true
+  );
+
   return (
     <Flex
       width="100%"
@@ -58,11 +122,13 @@ function Index() {
               fontSize="24px"
               lineHeight="24px"
               fontWeight="400"
-            ></Text>
+            >
+              Slippage: 0.1%
+            </Text>
             <Image width="24px" height="24px" src={wapChange} />
           </Flex>
         </Flex>
-        <TokenInput title="You pay" token={ETH} name="ETH" />
+        <TokenInput control={control} title="You pay" token={ETH} name="ETH" />
         <Box h="6px" position="relative">
           <Flex
             justifyContent="center"
@@ -95,7 +161,36 @@ function Index() {
             </Flex>
           </Flex>
         </Box>
-        <TokenInput title="You receive" token={beggarToken} name="Beggar" />
+        <TokenInput
+          control={control}
+          title="You receive"
+          token={beggarToken}
+          name="Beggar"
+        />
+        <Flex margin="24px 0" alignItems="center" gap="12px">
+          {mode === ModeEnum.ETH ? (
+            <Text fontSize="24px" fontWeight="400">
+              1 ETH ≈ {ethTransferBagger} Beggar
+            </Text>
+          ) : (
+            <Text fontSize="24px" fontWeight="400">
+              1 Beggar ≈ {beggarTransferEth} ETH
+            </Text>
+          )}
+
+          <Image
+            onClick={() => {
+              setMode(mode === ModeEnum.ETH ? ModeEnum.BEGGAR : ModeEnum.ETH);
+            }}
+            src={change}
+            height="24px"
+            width="24px"
+            _hover={buttonHover}
+          />
+        </Flex>
+        <BaseButton colorType="white" bgImage={whiteButtonLongBg}>
+          Swap
+        </BaseButton>
       </Flex>
       <Flex
         position="absolute"

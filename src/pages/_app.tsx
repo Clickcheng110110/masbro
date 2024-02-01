@@ -24,8 +24,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "@/styles/globals.css";
 import { useEffect } from "react";
 import { isDev } from "@/utils/request";
+import { blastSepolia } from "@/config/chains";
 
-export const supportChains = isDev ? [bsc, bscTestnet] : [bsc];
+export const supportChains = isDev ? [blastSepolia] : [blastSepolia];
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   supportChains,
@@ -39,13 +40,13 @@ const queryClient = new QueryClient();
 const config = createConfig({
   autoConnect: true,
   connectors: [
-    new MetaMaskConnector({ chains }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        projectId: "5bfcecd0ffc981fa732653bff3fac489",
-      },
-    }),
+    // new MetaMaskConnector({ chains }),
+    // new WalletConnectConnector({
+    //   chains,
+    //   options: {
+    //     projectId: "5bfcecd0ffc981fa732653bff3fac489",
+    //   },
+    // }),
     new InjectedConnector({
       chains,
       options: {
@@ -59,14 +60,6 @@ const config = createConfig({
 });
 
 function App({ Component, pageProps }: AppProps) {
-  const { i18n } = useTranslation();
-
-  useEffect(() => {
-    if (i18n.language === "en") {
-      i18n.changeLanguage("cn");
-    }
-  }, [i18n]);
-
   return (
     <Box
       as="main"

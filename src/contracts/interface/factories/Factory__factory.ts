@@ -4,14 +4,14 @@
 
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
-import type { AwardCenter, AwardCenterInterface } from "../AwardCenter";
+import type { Factory, FactoryInterface } from "../Factory";
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "contract IERC20",
-        name: "_astrAddress",
+        internalType: "address",
+        name: "_feeToSetter",
         type: "address",
       },
     ],
@@ -24,98 +24,40 @@ const _abi = [
       {
         indexed: true,
         internalType: "address",
-        name: "previousOwner",
+        name: "token0",
         type: "address",
       },
       {
         indexed: true,
         internalType: "address",
-        name: "newOwner",
+        name: "token1",
         type: "address",
-      },
-    ],
-    name: "OwnershipTransferred",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint8",
-        name: "releaseType",
-        type: "uint8",
+        internalType: "address",
+        name: "pair",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
-    name: "releaseTokenEvent",
+    name: "PairCreated",
     type: "event",
   },
   {
-    anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "withdrawTokenEvent",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "astrErc20",
-    outputs: [
-      {
-        internalType: "contract IERC20",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-    ],
-    name: "getBalance",
-    outputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "owner",
+    name: "allPairs",
     outputs: [
       {
         internalType: "address",
@@ -127,31 +69,101 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
+    inputs: [],
+    name: "allPairsLength",
+    outputs: [
       {
         internalType: "uint256",
-        name: "amount",
+        name: "",
         type: "uint256",
       },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
       {
-        internalType: "uint8",
-        name: "releaseType",
-        type: "uint8",
+        internalType: "address",
+        name: "tokenA",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "tokenB",
+        type: "address",
       },
     ],
-    name: "releaseToken",
-    outputs: [],
+    name: "createPair",
+    outputs: [
+      {
+        internalType: "address",
+        name: "pair",
+        type: "address",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "renounceOwnership",
+    name: "feeTo",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "feeToSetter",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "getPair",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_feeTo",
+        type: "address",
+      },
+    ],
+    name: "setFeeTo",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -160,59 +172,26 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "newOwner",
+        name: "_feeToSetter",
         type: "address",
       },
     ],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "withdraw",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address payable",
-        name: "recipient",
-        type: "address",
-      },
-    ],
-    name: "withdrawBNB",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_tokenAddress",
-        type: "address",
-      },
-    ],
-    name: "withdrawToken",
+    name: "setFeeToSetter",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
 ] as const;
 
-export class AwardCenter__factory {
+export class Factory__factory {
   static readonly abi = _abi;
-  static createInterface(): AwardCenterInterface {
-    return new utils.Interface(_abi) as AwardCenterInterface;
+  static createInterface(): FactoryInterface {
+    return new utils.Interface(_abi) as FactoryInterface;
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): AwardCenter {
-    return new Contract(address, _abi, signerOrProvider) as AwardCenter;
+  ): Factory {
+    return new Contract(address, _abi, signerOrProvider) as Factory;
   }
 }

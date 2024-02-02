@@ -3,6 +3,7 @@ import { Flex, Image, SimpleGrid } from "@chakra-ui/react";
 import title from "@/assets/images/BEG-ROADMAP.png";
 import back from "@/assets/images/BG-RM-BG.png";
 import Card from "@/components/Card";
+import px2vw from "@/theme/utils/px2vw";
 
 const card_1 = {
   title: "Phase 1",
@@ -31,22 +32,24 @@ function Index() {
     >
       <Image
         zIndex={0}
-        w="440px"
-        h="87px"
+        w={{ base: px2vw(200), md: "440px" }}
+        h={{ base: px2vw(40), md: "87px" }}
         src={title}
         alt="title"
-        marginTop={"-55px"}
+        objectFit="contain"
+        marginTop={{ base: px2vw(80), md: "-55px" }}
       />
       <Flex
-        w="1212px"
-        h="573px"
+        w={{ base: px2vw(540), md: "1212px" }}
+        h={{ base: px2vw(300), md: "573px" }}
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
         position="relative"
-        marginTop="-40px"
+        marginTop={{ base: px2vw(24), md: "-40px" }}
       >
         <Image
+          display={{ base: "none", md: "block" }}
           position="absolute"
           left="0"
           right="0"
@@ -56,34 +59,41 @@ function Index() {
           src={back}
         />
 
-        <SimpleGrid columns={2}>
+        <SimpleGrid
+          columns={{ base: 1, md: 2 }}
+        >
           <Flex
-            paddingRight="29px"
-            paddingBottom="26px"
+            paddingRight={{ base: "none", md: "29px" }}
+            paddingBottom={{ base: "13px", md: "26px" }}
             boxSize="border-box"
-            borderRight="1px dotted rgb(80,80,80)"
-            borderBottom="1px dotted rgb(80,80,80)"
+            borderRight={{ base: "none", md: "1px dotted rgb(80,80,80)" }}
+            borderBottom={{ base: "none", md: "1px dotted rgb(80,80,80)" }}
           >
             <Card title={card_1.title} context={card_1.context}></Card>
           </Flex>
           <Flex
-            paddingLeft="29px"
-            paddingBottom="26px"
+            paddingLeft={{ base: "none", md: "29px" }}
+            paddingBottom={{ base: "13px", md: "26px" }}
             boxSize="border-box"
-            borderBottom="1px dotted rgb(80,80,80)"
+            borderBottom={{ base: "none", md: "1px dotted rgb(80,80,80)" }}
           >
             <Card title={card_2.title} context={card_2.context}></Card>
           </Flex>
           <Flex
-            paddingRight="29px"
-            paddingTop="26px"
+            paddingRight={{ base: "none", md: "29px" }}
+            paddingTop={{ base: "none", md: "26px" }}
+            paddingBottom={{ base: "13px", md: "none" }}
             boxSize="border-box"
-            borderRight="1px dotted rgb(80,80,80)"
+            borderRight={{ base: "none", md: "1px dotted rgb(80,80,80)" }}
           >
             <Card title={card_3.title} context={card_3.context}></Card>
           </Flex>
 
-          <Flex paddingLeft="29px" paddingTop="26px" boxSize="border-box">
+          <Flex
+            paddingLeft={{ base: "none", md: "29px" }}
+            paddingTop={{ base: "none", md: "26px" }}
+            boxSize="border-box"
+          >
             <Card title={card_4.title} context={card_4.context}></Card>
           </Flex>
         </SimpleGrid>

@@ -5,6 +5,7 @@ import { Control, useController } from "react-hook-form";
 import { formatInputValue, formatValue } from "@/utils/common";
 import useDebounce from "@/hooks/useDebounce";
 import { buttonHover } from "@/theme/utils/style";
+import px2vw from "@/theme/utils/px2vw";
 
 export interface TokenInputProps extends BaseInputProps {
   title: string;
@@ -56,7 +57,11 @@ function Index({
   };
 
   return (
-    <Flex padding="24px" flexDirection="column" bg="rgba(255, 255, 255, 0.1)">
+    <Flex
+      padding={{ base: px2vw(16), md: "24px" }}
+      flexDirection="column"
+      bg="rgba(255, 255, 255, 0.1)"
+    >
       <Flex justifyContent="space-between">
         <Text fontSize="16px" color="rgba(255, 255, 255, 0.3)">
           {title}
@@ -84,12 +89,20 @@ function Index({
           placeholder="0"
           color="rgba(255, 255, 255,1)"
           _placeholder={{ color: "rgba(255, 255, 255, 0.3)" }}
-          fontSize="40px"
+          fontSize={{ base: "24px", md: "40px" }}
+          paddingRight="20px"
           {...otherProps}
         />
-        <Flex gap="12px" alignItems="center" justifyContent="center">
-          <Image w="32px" h="32px" src={token} />
-          <Text fontSize="32px" color="rgba(255, 255, 255, 1)">
+        <Flex gap={"12px"} alignItems="center" justifyContent="center">
+          <Image
+            w={{ base: "24px", md: "32px" }}
+            h={{ base: "24px", md: "32px" }}
+            src={token}
+          />
+          <Text
+            fontSize={{ base: "24px", md: "32px" }}
+            color="rgba(255, 255, 255, 1)"
+          >
             {tokenName}
           </Text>
         </Flex>

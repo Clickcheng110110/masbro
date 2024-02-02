@@ -34,6 +34,7 @@ import { getLocalStorage } from "@/utils/storage";
 import { storages } from "@/utils/constans";
 import InfoBox, { toastOption } from "@/components/TransToast";
 import { toast } from "react-toastify";
+import px2vw from "@/theme/utils/px2vw";
 
 export enum ModeEnum {
   ETH = "eth",
@@ -235,8 +236,8 @@ function Index() {
       flexDirection="column"
       //   justifyContent="center"
       alignItems="center"
-      h="950px"
-      w="1224px"
+      h={{ base: "100%", md: "950px" }}
+      w={{ base: "100%", md: "1224px" }}
       marginTop="-10px"
     >
       <Image
@@ -248,25 +249,35 @@ function Index() {
         opacity="0.3"
         src={wapBg}
       />
-      <Image width="280px" height="87px" marginTop="94px" src={begWap} />
+      <Image
+        width={{ base: px2vw(133), md: "280px" }}
+        height={{ base: px2vw(44), md: "87px" }}
+        marginTop={{ base: px2vw(80), md: "94px" }}
+        src={begWap}
+      />
 
       <Flex
         zIndex={10}
-        width="808px"
-        h="510px"
+        width={{ base: "95%", md: "808px" }}
+        h={{ base: "100%", md: "510px" }}
         marginTop="40px"
-        padding="32px 48px"
+        padding={{ base: `${px2vw(12)} ${px2vw(12)}`, md: "32px 48px" }}
         flexDirection="column"
         bg="#000"
         border="1px solid #FFF"
       >
         <Flex
           width="100%"
-          marginBottom="24px"
+          marginBottom={{ base: px2vw(15), md: "24px" }}
           justifyContent="space-between"
           alignItems="center"
         >
-          <Text color="#FFF" fontSize="32px" lineHeight="32px" fontWeight="400">
+          <Text
+            color="#FFF"
+            fontSize={{ base: "24px", md: "32px" }}
+            lineHeight={{ base: "24px", md: "32px" }}
+            fontWeight="400"
+          >
             Swap
           </Text>
           <Flex gap="12px">
@@ -339,13 +350,17 @@ function Index() {
           title="You receive"
           {...outputFields}
         />
-        <Flex margin="24px 0" alignItems="center" gap="12px">
+        <Flex
+          margin={{ base: `${px2vw(12)} 0`, md: "24px 0" }}
+          alignItems="center"
+          gap="12px"
+        >
           {mode === ModeEnum.ETH ? (
-            <Text fontSize="24px" fontWeight="400">
+            <Text fontSize={{ base: "16px", md: "24px" }} fontWeight="400">
               1 ETH ≈ {ethTransferBagger} Beggar
             </Text>
           ) : (
-            <Text fontSize="24px" fontWeight="400">
+            <Text fontSize={{ base: "16px", md: "24px" }} fontWeight="400">
               1 Beggar ≈ {beggarTransferEth} ETH
             </Text>
           )}
@@ -398,11 +413,12 @@ function Index() {
         )}
       </Flex>
       <Flex
+        display={{ base: "none", md: "flex" }}
         position="absolute"
-        left="230px"
-        top="244px"
-        width="808px"
-        h="510px"
+        left="5px"
+        top="5px"
+        width={{ base: "95%", md: "808px" }}
+        h={{ base: "100%", md: "510px" }}
         padding="32px 48px"
         flexDirection="column"
         border="1px solid #FFF"

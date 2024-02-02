@@ -35,7 +35,7 @@ function Index() {
         h="87px"
         src={title}
         alt="title"
-        marginTop="-55px"
+        marginTop={"-55px"}
       />
       <Flex
         w="1212px"
@@ -56,9 +56,7 @@ function Index() {
           src={back}
         />
 
-        <SimpleGrid
-          columns={2}
-        >
+        <SimpleGrid columns={2}>
           <Flex
             paddingRight="29px"
             paddingBottom="26px"
@@ -85,19 +83,12 @@ function Index() {
             <Card title={card_3.title} context={card_3.context}></Card>
           </Flex>
 
-          <Flex
-            paddingLeft="29px"
-            paddingTop="26px"
-            boxSize="border-box"
-          >
+          <Flex paddingLeft="29px" paddingTop="26px" boxSize="border-box">
             <Card title={card_4.title} context={card_4.context}></Card>
           </Flex>
-
         </SimpleGrid>
-
       </Flex>
     </Flex>
-
   );
 }
 

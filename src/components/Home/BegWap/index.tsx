@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text, Toast } from "@chakra-ui/react";
 import React, { Component, useState } from "react";
 
 import begWap from "@/assets/images/begWap.png";
@@ -17,7 +17,12 @@ import { useForm } from "react-hook-form";
 import { useContracts, useContractsContext } from "@/context/ContractsContext";
 import { useConfig, useConfigContext } from "@/context/ConfigContext";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { formatValue, fromWei, toWei } from "@/utils/common";
+import {
+  formatValue,
+  fromWei,
+  portalErrorTranslation,
+  toWei,
+} from "@/utils/common";
 import { buttonHover } from "@/theme/utils/style";
 import BigNumber from "bignumber.js";
 import useTransaction from "@/hooks/useTransaction";
@@ -25,6 +30,10 @@ import useErc20 from "@/hooks/useErc20";
 import { useBalance } from "wagmi";
 import useModal from "@/hooks/useModal";
 import SlippageContent from "@/components/ModalContents/SlippageContent";
+import { getLocalStorage } from "@/utils/storage";
+import { storages } from "@/utils/constans";
+import InfoBox, { toastOption } from "@/components/TransToast";
+import { toast } from "react-toastify";
 
 export enum ModeEnum {
   ETH = "eth",
@@ -39,9 +48,7 @@ function Index() {
   >({
     // defaultValues: formDefaultValues,
   });
-
   const values = watch();
-
   const { routerV2Contract } = useContractsContext();
   const { config, address } = useConfigContext();
   const { run, loading } = useTransaction(
@@ -59,7 +66,6 @@ function Index() {
 
   const [isReverse, setIsReverse] = useState(false);
   const [mode, setMode] = useState<ModeEnum>(ModeEnum.ETH);
-  const [slippage, setSlippage] = useState(0.03);
 
   const [SlippageModal, { onOpen: onSlippageModalOpen }] = useModal(
     SlippageContent,
@@ -90,6 +96,10 @@ function Index() {
     ]);
     return amountOut;
   };
+
+  const localSlippage = getLocalStorage(storages.SLIPPAGE_VALUE);
+  const slippage = localSlippage * 0.01 || 0.01;
+
   const getAmountOutQuery = useQuery({
     queryKey: ["getAmountOut", values.input, isReverse],
     queryFn: async ({ queryKey }) => {
@@ -125,6 +135,22 @@ function Index() {
         .toFixed(0);
       const toWeiInput = toWei(values.input as string)?.toString();
       const deadline = Math.floor(Date.now() / 1000 + ONE_HOUR * 0.5);
+      toast(
+        (props) => {
+          return <InfoBox {...props} />;
+        },
+        {
+          ...toastOption,
+          data: {
+            title: "Swap",
+            desc: `Paying ${formatValue(values?.input as string)} ${
+              inputFields.tokenName
+            } for ${formatValue(values?.output as string)} ${
+              outputFields.tokenName
+            }...`,
+          },
+        }
+      );
       if (isReverse) {
         await swapExactTokensForETHRun(
           toWeiInput,
@@ -144,8 +170,25 @@ function Index() {
           }
         );
       }
+      toast(
+        (props) => {
+          return <InfoBox {...props} type="success" />;
+        },
+        {
+          ...toastOption,
+          data: {
+            title: "Swap successful",
+            desc: `Swap ${formatValue(values?.input as string)} ${
+              inputFields.tokenName
+            } for ${formatValue(values?.output as string)} ${
+              outputFields.tokenName
+            }`,
+          },
+        }
+      );
       ethBalanceRefetch();
       getBalance();
+      reset();
       // console.log(res);
     } catch (error) {
       console.log("error", error);
@@ -160,7 +203,7 @@ function Index() {
     getAmountOutInitQuery?.data?.[0]?.toString() as string,
     true
   );
-  console.log("beggarTransferEth", beggarTransferEth);
+
   const isSwapLoading =
     getAmountOutQuery?.isLoading || swapExactTokensForETHRunLoading || loading;
   const isSwapDisabled =
@@ -184,6 +227,8 @@ function Index() {
   const inputFields = !isReverse ? ethFields : baggerFields;
   const outputFields = !isReverse ? baggerFields : ethFields;
   const shouldVerify = isReverse;
+
+  console.log("values", values);
 
   return (
     <Flex
@@ -233,7 +278,7 @@ function Index() {
               lineHeight="24px"
               fontWeight="400"
             >
-              Slippage: 0.1%
+              Slippage: {localSlippage}%
             </Text>
             <Image
               onClick={() => {

@@ -31,7 +31,9 @@ function useTransaction<Params = any, Response = any>(
         },
         {
           ...toastOption,
-          data: portalErrorTranslation(e),
+          data: {
+            desc: portalErrorTranslation(e),
+          },
         }
       );
       setError(e);

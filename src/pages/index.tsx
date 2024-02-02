@@ -4,7 +4,11 @@ import BegOkenomis from "@/components/Home/BegOkenomis";
 import Begger from "@/components/Home/Begger";
 import BigInt from "@/components/Home/BigInt";
 import BegRoadMap from "@/components/Home/BegRoadMap";
+import { useIsClient } from "usehooks-ts";
+
 export default function Home() {
+  const isClient = useIsClient();
+
   return (
     <Flex
       flexDirection="column"
@@ -14,7 +18,7 @@ export default function Home() {
     >
       <Begger />
       <BigInt />
-      <BegWap />
+      {isClient && <BegWap />}
 
       <BegRoadMap />
       <BegOkenomis />

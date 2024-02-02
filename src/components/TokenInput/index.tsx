@@ -36,9 +36,7 @@ function Index({
   const [newValue, setNewValue] = useState<string>("");
 
   useEffect(() => {
-    if (value) {
-      setNewValue(value as string);
-    }
+    setNewValue(value as string);
   }, [value]);
 
   const handleFormChange = useDebounce((val: string) => {

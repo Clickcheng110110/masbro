@@ -51,12 +51,21 @@ function Index() {
           position="relative"
           marginTop="150px"
           w="100%"
-          justifyContent="flex-start"
+          justifyContent="space-between"
         >
           <Image w="120px" h="120px" src={intIcon1} marginRight="40px" />
+          {!isShowAnimation && (
+            <Image
+              w="236px"
+              h="185px"
+              marginLeft="120px"
+              marginTop="-50px"
+              src={intBegger}
+            />
+          )}
           <Image w="184px" h="128px" src={intIcon2} />
 
-          <MotionImage
+          {/* <MotionImage
             position="absolute"
             left="280px"
             top="-75px"
@@ -257,18 +266,9 @@ function Index() {
                 icon={Scroll}
               />
             </Flex>
-          )}
+          )} */}
 
           {/* <Image w="184px" h="128px" src={intIcon3} /> */}
-          {!isShowAnimation && (
-            <Image
-              w="236px"
-              h="185px"
-              marginLeft="120px"
-              marginTop="-50px"
-              src={intBegger}
-            />
-          )}
         </Flex>
       </Flex>
       <Image

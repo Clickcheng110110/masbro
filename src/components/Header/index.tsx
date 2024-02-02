@@ -23,6 +23,7 @@ import connectLogo from "@/assets/images/connect.png";
 import { ConfigContext, useConfigContext } from "@/context/ConfigContext";
 import BaseButton from "../BaseButton";
 import { formatAddress } from "@/utils/common";
+import { detectMetamask } from "@/utils/wallet";
 export interface LinkItem {
   label: string;
   path: string;
@@ -135,6 +136,11 @@ function Index() {
             ) : (
               <BaseButton
                 onClick={() => {
+                  const isInstallMetamask = detectMetamask();
+                  if (!isInstallMetamask) {
+                    window.open("https://metamask.io/download.html", "_blank");
+                    return;
+                  }
                   connect?.({
                     connector: connectors?.[0],
                   });

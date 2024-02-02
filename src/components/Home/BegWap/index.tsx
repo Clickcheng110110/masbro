@@ -204,14 +204,6 @@ function Index() {
     true
   );
 
-  const isSwapLoading =
-    getAmountOutQuery?.isLoading || swapExactTokensForETHRunLoading || loading;
-  const isSwapDisabled =
-    !values.input ||
-    !values.output ||
-    !beggarBalance ||
-    !ethBalanceData?.formatted;
-
   const ethFields = {
     token: ETH,
     tokenName: "ETH",
@@ -228,7 +220,13 @@ function Index() {
   const outputFields = !isReverse ? baggerFields : ethFields;
   const shouldVerify = isReverse;
 
-  console.log("values", values);
+  const isSwapLoading =
+    getAmountOutQuery?.isLoading || swapExactTokensForETHRunLoading || loading;
+  const isSwapDisabled =
+    !values.input ||
+    !values.output ||
+    !beggarBalance ||
+    !ethBalanceData?.formatted;
 
   return (
     <Flex

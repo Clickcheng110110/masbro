@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import BaseInput, { BaseInputProps } from "../BaseInput";
 import { Control, useController } from "react-hook-form";
 import { formatInputValue, formatValue } from "@/utils/common";
-import { debounce } from "lodash";
 import useDebounce from "@/hooks/useDebounce";
 import { buttonHover } from "@/theme/utils/style";
 
@@ -44,7 +43,10 @@ function Index({
   }, 500);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = formatInputValue(e.target.value);
+    let inputValue = formatInputValue(e.target.value);
+    if (Number(inputValue) > Number(balance)) {
+      inputValue = balance;
+    }
     setNewValue(inputValue);
     handleFormChange(inputValue);
   };

@@ -11,17 +11,12 @@ import React, { useState } from "react";
 import bigInt from "@/assets/images/begInt.png";
 import intIcon1 from "@/assets/images/int-icon-1.png";
 import intIcon2 from "@/assets/images/int-icon-2.png";
-import intIcon3 from "@/assets/images/int-icon-3.png";
+
 import intBegger from "@/assets/images/int-begger.png";
-import Manta from "@/assets/images/Manta.png";
-import blast from "@/assets/images/blast.png";
-import Scroll from "@/assets/images/Scroll.png";
-import zk from "@/assets/images/zk.png";
-import zkfair from "@/assets/images/zkfair.png";
-import Starknet from "@/assets/images/Starknet.png";
-import linear from "@/assets/images/linear.png";
+
 import mint from "@/assets/images/mint.png";
 import { motion } from "framer-motion";
+import px2vw from "@/theme/utils/px2vw";
 import { buttonHover } from "@/theme/utils/style";
 
 interface BlockChainProps {
@@ -44,26 +39,42 @@ function Index() {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        w="1224px"
+        w={{ base: "100%", md: "1224px" }}
       >
-        <Image w="287px" h="87px" objectFit="contain" src={bigInt} />
+        <Image
+          // display={{ base: "none", md: "block" }}
+          w="287px"
+          h="87px"
+          objectFit="contain"
+          src={bigInt}
+        />
         <Flex
           position="relative"
-          marginTop="150px"
+          marginTop="63px"
           w="100%"
           justifyContent="space-between"
+          alignItems="center"
         >
-          <Image w="120px" h="120px" src={intIcon1} marginRight="40px" />
+          <Image
+            display={{ base: "none", md: "block" }}
+            w="120px"
+            h="120px"
+            src={intIcon1}
+            marginRight="40px"
+          />
           {!isShowAnimation && (
             <Image
-              w="236px"
-              h="185px"
-              marginLeft="120px"
-              marginTop="-50px"
+              w={{ base: px2vw(350), md: "375px" }}
+              h={{ base: px2vw(215), md: "215px" }}
               src={intBegger}
             />
           )}
-          <Image w="184px" h="128px" src={intIcon2} />
+          <Image
+            display={{ base: "none", md: "block" }}
+            w="184px"
+            h="128px"
+            src={intIcon2}
+          />
 
           {/* <MotionImage
             position="absolute"

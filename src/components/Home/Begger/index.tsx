@@ -8,6 +8,7 @@ import musicDisabled from "@/assets/images/music-disabled.png";
 import music from "@/assets/images/music.png";
 import { buttonHover } from "@/theme/utils/style";
 import { motion } from "framer-motion";
+import px2vw from "@/theme/utils/px2vw";
 
 interface TokenProps {
   name: string;
@@ -54,10 +55,11 @@ function Index() {
       justifyContent="center"
       alignItems="center"
       position="relative"
-      w="1224px"
-      h="525px"
+      w={{ base: "100%", md: "1224px" }}
+      h={{ base: px2vw(360), md: "525px" }}
     >
       <Image
+        display={{ base: "none", md: "block" }}
         zIndex={9}
         position="absolute"
         top="24px"
@@ -80,6 +82,7 @@ function Index() {
         alt="bg1"
       />
       <Image
+        display={{ base: "none", md: "block" }}
         ignoreFallback
         zIndex={1}
         src={bg2}
@@ -90,6 +93,7 @@ function Index() {
         h="226px"
       />
       <Image
+        display={{ base: "none", md: "block" }}
         ignoreFallback
         zIndex={2}
         src={bg3}
@@ -104,39 +108,44 @@ function Index() {
         alignItems="center"
         justifyContent="center"
         position="absolute"
-        left="calc(100% - 180ox)"
+        left={{ base: `calc(50% - ${px2vw(180)})`, md: "calc(50% - 180px)" }}
         top="132px"
-        width="360px"
+        w={{ base: "100%", md: "360px" }}
       >
-        <Image w="360px" h="121px" objectFit="contain" src={begger} />
+        <Image
+          w={{ base: px2vw(180), md: "360px" }}
+          h={{ base: px2vw(75), md: "121px" }}
+          objectFit="contain"
+          src={begger}
+        />
 
         <Text
           color="#FFC300"
           marginTop="12px"
           marginBottom="5px"
-          fontSize="32px"
-          lineHeight="32px"
+          fontSize={{ base: "20px", md: "32px" }}
+          lineHeight={{ base: "20px", md: "32px" }}
           fontWeight="400"
         >
           Disregard All Else
         </Text>
         <Text
           color="#FFC300"
-          fontSize="32px"
-          lineHeight="32px"
+          fontSize={{ base: "20px", md: "32px" }}
+          lineHeight={{ base: "20px", md: "32px" }}
           fontWeight="400"
         >
           Eat Points Save Pacman
         </Text>
       </Flex>
       <Flex
-        marginTop="460px"
+        marginTop={{ base: px2vw(370), md: "460px" }}
         gap="16px"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
       >
-        <Flex gap="16px">
+        <Flex gap="16px" display={{ base: "none", md: "flex" }}>
           <Token name="MANTA" delay={0.1}></Token>
           <Token name="LOG" delay={0.2}></Token>
           <Token name="BTC" delay={0.3}></Token>

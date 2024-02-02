@@ -86,7 +86,7 @@ function App({ Component, pageProps }: AppProps) {
                   maxWidth="1920px"
                   minWidth={{ base: "100%", md: "1440px" }}
                 >
-                  <Box minHeight="100vh" padding="85px">
+                  <Box minHeight="100vh" padding={{ base: "0px", md: "85px" }}>
                     <Component {...pageProps} />
                     <Footer />
                   </Box>

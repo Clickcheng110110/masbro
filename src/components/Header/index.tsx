@@ -82,7 +82,8 @@ function Index() {
     return links.map((item) => {
       return (
         <Text
-          fontSize="24px"
+          fontSize={{ base: "16px", md: "24px" }}
+          fontWeight="400"
           textStyle="normal"
           onClick={() => {
             handleLink(item);
@@ -152,16 +153,61 @@ function Index() {
           </Stack>
         </Flex>
       </Box>
-      <Box
+      <Flex
         display={{ base: "flex", md: "none" }}
+        flexDirection="column"
+        bgColor={"black.100"}
         zIndex={99}
         position="fixed"
         width="100%"
-        paddingTop={px2vw(24)}
-        paddingLeft={px2vw(24)}
-        paddingRight={px2vw(24)}
-        backgroundColor={isOpen ? "#181D20" : "black.500"}
-      ></Box>
+        padding="20px 16px"
+        gap={{ base: px2vw(30), md: "0px" }}
+      >
+        <Flex
+          width="100%"
+          justify="space-between"
+          alignItems="center"
+          maxWidth={"1440px"}
+          margin="0 auto"
+        >
+          <Flex justifyContent="center" alignItems="center" gap="12px">
+            <Image
+              onClick={() => {
+                router.push("/");
+              }}
+              src={logo}
+              width={{ base: px2vw(34), md: "36px" }}
+            />
+            <Text fontSize="24px">Beggar</Text>
+          </Flex>
+
+          <Stack direction="row" spacing="40px" alignItems="center">
+            {address ? (
+              <BaseButton colorType="yellow">
+                {formatAddress(address)}
+              </BaseButton>
+            ) : (
+              <BaseButton
+                onClick={() => {
+                  const isInstallMetamask = detectMetamask();
+                  if (!isInstallMetamask) {
+                    window.open("https://metamask.io/download.html", "_blank");
+                    return;
+                  }
+                  connect?.({
+                    connector: connectors?.[0],
+                  });
+                }}
+              >
+                Connect Wallet
+              </BaseButton>
+            )}
+          </Stack>
+        </Flex>
+        <Flex width="100%" justify="space-between" alignItems="center">
+          {render()}
+        </Flex>
+      </Flex>
     </>
   );
 }

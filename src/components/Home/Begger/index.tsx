@@ -146,29 +146,29 @@ function Index() {
         justifyContent="center"
       >
         <Flex gap="16px" display={{ base: "none", md: "flex" }}>
-          <Token name="MANTA" delay={0.1}></Token>
-          <Token name="LOG" delay={0.2}></Token>
-          <Token name="BTC" delay={0.3}></Token>
-          <Token name="ETH" delay={0.4}></Token>
-          <Token name="ETH" delay={0.5}></Token>
+          <Token name="BEG" delay={0.1}></Token>
+          <Token name="BEG" delay={0.2}></Token>
+          <Token name="BEG" delay={0.3}></Token>
+          <Token name="BEG" delay={0.4}></Token>
+          <Token name="BEG" delay={0.5}></Token>
         </Flex>
         <Flex gap="16px">
-          <Token name="MANTA" delay={0.6}></Token>
-          <Token name="LOG" delay={0.7}></Token>
-          <Token name="BTC" delay={0.8}></Token>
-          <Token name="ETH" delay={0.9}></Token>
+          <Token name="BEG" delay={0.6}></Token>
+          <Token name="BEG" delay={0.7}></Token>
+          <Token name="BEG" delay={0.8}></Token>
+          <Token name="BEG" delay={0.9}></Token>
         </Flex>
         <Flex gap="16px">
-          <Token name="MANTA" delay={1}></Token>
-          <Token name="LOG" delay={1.1}></Token>
-          <Token name="BTC" delay={1.2}></Token>
+          <Token name="BEG" delay={1}></Token>
+          <Token name="BEG" delay={1.1}></Token>
+          <Token name="BEG" delay={1.2}></Token>
         </Flex>
         <Flex gap="16px">
-          <Token name="MANTA" delay={1.3}></Token>
-          <Token name="LOG" delay={1.4}></Token>
+          <Token name="BEG" delay={1.3}></Token>
+          <Token name="BEG" delay={1.4}></Token>
         </Flex>
         <Flex gap="16px">
-          <Token name="MANTA" delay={1.5}></Token>
+          <Token name="BEG" delay={1.5}></Token>
         </Flex>
       </Flex>
     </Flex>

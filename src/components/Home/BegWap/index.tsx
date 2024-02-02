@@ -415,10 +415,10 @@ function Index() {
       <Flex
         display={{ base: "none", md: "flex" }}
         position="absolute"
-        left="5px"
-        top="5px"
-        width={{ base: "95%", md: "808px" }}
-        h={{ base: "100%", md: "510px" }}
+        left="230px"
+        top="244px"
+        width="808px"
+        h="510px"
         padding="32px 48px"
         flexDirection="column"
         border="1px solid #FFF"

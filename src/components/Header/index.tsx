@@ -24,6 +24,8 @@ import { ConfigContext, useConfigContext } from "@/context/ConfigContext";
 import BaseButton from "../BaseButton";
 import { formatAddress } from "@/utils/common";
 import { detectMetamask } from "@/utils/wallet";
+import { useSwitchNetwork } from "wagmi";
+import { supportChains } from "@/pages/_app";
 export interface LinkItem {
   label: string;
   path: string;
@@ -36,7 +38,8 @@ function Index() {
   const router = useRouter();
   const toast = useToast();
   const [isOpen, toggle] = useToggle(false);
-  const { address, connectors, connect } = useConfigContext();
+  const { address, connectors, isSupportChain, connect } = useConfigContext();
+  const { isSuccess, isLoading, switchNetwork } = useSwitchNetwork();
 
   console.log(address);
   const links: LinkItem[] = [
@@ -101,6 +104,7 @@ function Index() {
     });
   };
 
+  console.log("isSupportChain", isSupportChain);
   return (
     <>
       <Box
@@ -131,9 +135,20 @@ function Index() {
           <Stack direction="row" spacing="40px" alignItems="center">
             {render()}
             {address ? (
-              <BaseButton colorType="yellow">
-                {formatAddress(address)}
-              </BaseButton>
+              isSupportChain ? (
+                <BaseButton colorType="yellow">
+                  {formatAddress(address)}
+                </BaseButton>
+              ) : (
+                <BaseButton
+                  colorType="yellow"
+                  onClick={() => {
+                    switchNetwork?.(supportChains?.[0]?.id);
+                  }}
+                >
+                  Network Error
+                </BaseButton>
+              )
             ) : (
               <BaseButton
                 onClick={() => {
@@ -183,9 +198,20 @@ function Index() {
 
           <Stack direction="row" spacing="40px" alignItems="center">
             {address ? (
-              <BaseButton colorType="yellow">
-                {formatAddress(address)}
-              </BaseButton>
+              isSupportChain ? (
+                <BaseButton colorType="yellow">
+                  {formatAddress(address)}
+                </BaseButton>
+              ) : (
+                <BaseButton
+                  colorType="yellow"
+                  onClick={() => {
+                    switchNetwork?.(supportChains?.[0]?.id);
+                  }}
+                >
+                  Network Error
+                </BaseButton>
+              )
             ) : (
               <BaseButton
                 onClick={() => {

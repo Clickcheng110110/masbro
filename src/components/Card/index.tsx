@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
+import px2vw from "@/theme/utils/px2vw";
 
 export interface Props {
   title?: string;
@@ -10,8 +11,8 @@ function Index({ title, context }: Props) {
   return (
     <Flex alignItems="center">
       <Box
-        w="479px"
-        h="154px"
+        w={{ base: px2vw(343), md: "479px" }}
+        h={{ base: px2vw(70), md: "154px" }}
         flex-shrink="0"
         background="rgba(255, 195, 0, 0.1)"
       >
@@ -19,11 +20,11 @@ function Index({ title, context }: Props) {
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
-          w="479px"
-          h="154px"
+          w={{ base: px2vw(343), md: "479px" }}
+          h={{ base: px2vw(70), md: "154px" }}
         >
           <Text
-            fontSize="24px"
+            fontSize={{ base: "16px", md: "24px" }}
             fontStyle="normal"
             lineHeight="normal"
             fontWeight="400"
@@ -33,8 +34,8 @@ function Index({ title, context }: Props) {
           </Text>
 
           <Text
-            marginTop="30px"
-            fontSize="40px"
+            marginTop={{ base: "8px", md: "30px" }}
+            fontSize={{ base: "24px", md: "40px" }}
             fontStyle="normal"
             lineHeight="normal"
             fontWeight="400"

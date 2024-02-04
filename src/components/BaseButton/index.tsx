@@ -2,13 +2,11 @@ import { useConfigContext } from "@/context/ConfigContext";
 import px2vw from "@/theme/utils/px2vw";
 import { Button, ButtonProps } from "@chakra-ui/react";
 import React from "react";
-// import ConnectModalContent from "../Modals/ConnectModalContent";
-import useModal from "@/hooks/useModal";
-import { useTranslation } from "next-i18next";
 
 import whiteButtonBg from "@/assets/images/white-button-bg.png";
 import yellowButtonBg from "@/assets/images/yellow-button-bg.png";
 import { useSwitchNetwork } from "wagmi";
+import { supportChains } from "@/pages/_app";
 
 export interface BaseButtonProps extends ButtonProps {
   needLogin?: boolean;

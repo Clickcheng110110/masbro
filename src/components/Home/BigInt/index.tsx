@@ -5,6 +5,7 @@ import {
   ImageProps,
   Box,
   MergeWithAs,
+  Progress,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
@@ -22,6 +23,10 @@ import BaseButton from "@/components/BaseButton";
 import { useConfigContext } from "@/context/ConfigContext";
 import { useLottie } from "lottie-react";
 import begAnimation from "@/assets/animation/beg-animation.json";
+import { useQuery } from "@tanstack/react-query";
+import { getEligible } from "@/apis";
+import useTransaction from "@/hooks/useTransaction";
+import { useContractsContext } from "@/context/ContractsContext";
 
 function Index() {
   const animationOptions = {
@@ -30,10 +35,36 @@ function Index() {
   };
 
   const { View } = useLottie(animationOptions);
-
+  const { claimContract } = useContractsContext();
+  const { config, address } = useConfigContext();
   const [isShowAnimation, setIsShowAnimation] = useState(false);
-  const { address } = useConfigContext();
 
+  const getEligibleStatus = useQuery({
+    queryKey: ["getAmountOut", address],
+    queryFn: async ({ queryKey }) => {
+      if (!queryKey[1]) return null;
+      const res: any = await getEligible(queryKey[1] as string);
+
+      return res;
+    },
+  });
+
+  const claimTransaction = useTransaction(claimContract?.claim, {});
+
+  const isEligible = getEligibleStatus?.data?.data?.signature;
+
+  const handleMint = async () => {
+    try {
+      if (!isEligible) return;
+      await claimTransaction.run(
+        getEligibleStatus?.data?.data?.amount,
+        getEligibleStatus?.data?.data?.signature
+      );
+      setIsShowAnimation(!isShowAnimation);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   return (
     <>
       <Flex
@@ -41,7 +72,7 @@ function Index() {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        w={{ base: "100%", md: "1224px" }}
+        w={{ base: "100%", md: "800px" }}
       >
         <Image
           // display={{ base: "none", md: "block" }}
@@ -53,7 +84,7 @@ function Index() {
         <Flex
           position="relative"
           marginTop="63px"
-          w="100%"
+          w={{ base: "100%", md: "800px" }}
           justifyContent={{ base: "center", md: "space-between" }}
           alignItems="center"
         >
@@ -62,21 +93,14 @@ function Index() {
             <>
               <Image
                 display={{ base: "none", md: "block" }}
-                w="120px"
-                h="120px"
-                src={intIcon1}
-                marginRight="40px"
+                w="184px"
+                h="128px"
+                src={intIcon2}
               />
               <Image
                 w={{ base: px2vw(330), md: "375px" }}
                 h={{ base: px2vw(197), md: "215px" }}
                 src={intBegger}
-              />
-              <Image
-                display={{ base: "none", md: "block" }}
-                w="184px"
-                h="128px"
-                src={intIcon2}
               />
             </>
           )}
@@ -85,51 +109,65 @@ function Index() {
         </Flex>
       </Flex>
 
+      <Text
+        marginTop="48px"
+        marginBottom="40px"
+        maxW={{ base: "90%", md: "800px" }}
+        fontSize={{ base: "24px", md: "32px" }}
+        lineHeight={{ base: "32px", md: "32px" }}
+        fontWeight="400"
+        textAlign="center"
+      >
+        Rap the pac to mint, the first 2,000 guys will be able to mint $Beg
+      </Text>
+      <Progress
+        colorScheme="yellow"
+        value={80}
+        w={{ base: "90%", md: "800px" }}
+        height="20px"
+      />
+      <Flex
+        marginTop={{ base: "12px", md: "20px" }}
+        marginBottom="24px"
+        width="100%"
+        justifyContent="space-between"
+        alignItems="center"
+        fontSize={{ base: "16px", md: "24px" }}
+        fontWeight="400"
+        maxW={{ base: "90%", md: "800px" }}
+      >
+        <Text>Minted:162 Beg</Text>
+        <Text>Total:2,000 Beg</Text>
+      </Flex>
+
       {address ? (
-        <Image
-          _hover={buttonHover}
-          onClick={() => {
-            setIsShowAnimation(!isShowAnimation);
-          }}
-          marginTop="100px"
-          marginBottom="53px"
-          src={mint}
-        />
+        isEligible ? (
+          <BaseButton
+            isLoading={claimTransaction.loading}
+            colorType="yellow"
+            marginBottom="53px"
+            bgImage={buttonBgYellowSm}
+            width={{ base: px2vw(230), md: "240px" }}
+            onClick={handleMint}
+          >
+            Mint
+          </BaseButton>
+        ) : (
+          <BaseButton
+            marginBottom="53px"
+            width={{ base: px2vw(230), md: "240px" }}
+          >
+            No Eligible
+          </BaseButton>
+        )
       ) : (
         <BaseButton
-          marginTop="100px"
           marginBottom="53px"
           width={{ base: px2vw(230), md: "230px" }}
         >
           Connect Wallet
         </BaseButton>
       )}
-
-      <Text
-        fontSize={{ base: "24px", md: "32px" }}
-        lineHeight={{ base: "32px", md: "32px" }}
-        fontWeight="400"
-      >
-        Rap the pac to mint
-      </Text>
-      <Text
-        padding={{ base: "0 20px", md: "0" }}
-        fontSize={{ base: "24px", md: "32px" }}
-        lineHeight={{ base: "32px", md: "32px" }}
-        fontWeight="400"
-        textAlign="center"
-      >
-        10,000 lucky guys will be able to claim till{" "}
-        <Text
-          display="inline-block"
-          color="#FFC300"
-          fontSize={{ base: "24px", md: "32px" }}
-          lineHeight={{ base: "32px", md: "32px" }}
-          fontWeight="400"
-        >
-          18:23
-        </Text>
-      </Text>
       <Flex
         zIndex={10}
         marginTop={{ base: px2vw(40), md: "80px" }}

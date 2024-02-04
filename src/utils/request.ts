@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const isDev = false;
 
-export const API_BASE_PATH = "https://api.lucky-star.fun/api";
-export const API_TEST_PATH = "http://43.198.102.153:8080/api";
+export const API_BASE_PATH = "http://109.106.244.142:8000";
+export const API_TEST_PATH = "http://109.106.244.142:8000";
 export const API_BASE_PATH2 = "http://43.198.233.40:8088/api";
 
 export const instance = axios.create({

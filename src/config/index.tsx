@@ -37,6 +37,7 @@ export interface IConfig {
   routerV2: string;
   factory: string;
   weth: string;
+  claim: string;
 }
 
 const config: Record<string, IConfig> = {
@@ -45,6 +46,7 @@ const config: Record<string, IConfig> = {
     routerV2: "0x65Ba667b1C099024bEd9c592Bd35c4094831154d",
     factory: "0x6C9ec0B9B5EA1CBB0A451ED5F90d604550cA650f",
     weth: "0x4200000000000000000000000000000000000023",
+    claim: "0xD60E440847e8685fdDf475613503AD7729c5Cd98",
   },
 };
 

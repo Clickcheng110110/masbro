@@ -1,6 +1,8 @@
 import { createContext, useContext } from "react";
 import { useConfigContext } from "./ConfigContext";
 import { Factory__factory, RouterV2__factory } from "@/contracts/interface";
+import { Contract } from "ethers";
+import { claimAbis } from "@/contracts/abis/claim";
 
 export type IContractContext = Partial<ReturnType<typeof useContracts>>;
 export const ContractsContext = createContext<IContractContext>({});
@@ -19,9 +21,12 @@ export const useContracts = () => {
     signerOrProvider
   );
 
+  const claimContract = new Contract(config.claim, claimAbis, signerOrProvider);
+
   return {
     factoryContract,
     routerV2Contract,
+    claimContract,
   };
 };
 

@@ -8,6 +8,7 @@ import { useTranslation } from "next-i18next";
 
 import whiteButtonBg from "@/assets/images/white-button-bg.png";
 import yellowButtonBg from "@/assets/images/yellow-button-bg.png";
+import { useSwitchNetwork } from "wagmi";
 
 export interface BaseButtonProps extends ButtonProps {
   needLogin?: boolean;
@@ -22,8 +23,10 @@ function Index({
   onClick,
   ...props
 }: BaseButtonProps) {
-  const { isConnected, connectors, connect } = useConfigContext();
-  const { t } = useTranslation();
+  const { isConnected, connectors, isSupportChain, connect } =
+    useConfigContext();
+  const { switchNetwork } = useSwitchNetwork();
+
   // const [ConnectModal, connectModalStatus] = useModal(ConnectModalContent);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (!isConnected) {
@@ -31,6 +34,10 @@ function Index({
       connect?.({
         connector: connectors?.[0],
       });
+      return;
+    }
+    if (!isSupportChain) {
+      switchNetwork?.(supportChains?.[0]?.id);
       return;
     }
     onClick?.(e);
@@ -73,7 +80,11 @@ function Index({
         }}
         {...props}
       >
-        {needLogin && !isConnected ? "Connect Wallet" : children}
+        {needLogin && !isConnected
+          ? "Connect Wallet"
+          : isSupportChain
+          ? children
+          : "Network Error"}
       </Button>
       {/* {ConnectModal} */}
     </>

@@ -52,6 +52,9 @@ const themeConfig = {
     red: {
       "200": "#FF6291",
     },
+    yellow: {
+      "500": "#FFC300",
+    },
   },
   breakpoints: {
     sm: "320px",

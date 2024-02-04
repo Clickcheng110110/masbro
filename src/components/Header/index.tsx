@@ -39,9 +39,8 @@ function Index() {
   const toast = useToast();
   const [isOpen, toggle] = useToggle(false);
   const { address, connectors, isSupportChain, connect } = useConfigContext();
-  const { isSuccess, isLoading, switchNetwork } = useSwitchNetwork();
+  const { switchNetwork } = useSwitchNetwork();
 
-  console.log(address);
   const links: LinkItem[] = [
     {
       label: "Twitter",
@@ -104,7 +103,6 @@ function Index() {
     });
   };
 
-  console.log("isSupportChain", isSupportChain);
   return (
     <>
       <Box

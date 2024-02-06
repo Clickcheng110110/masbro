@@ -36,7 +36,7 @@ function Card({ point, context }: Props) {
         {context}
       </Text>
     </Flex>
-  )
+  );
 }
 
 function Index() {
@@ -98,7 +98,8 @@ function Index() {
           <Flex
             justifyContent="center"
             alignItems="center"
-            flexDirection="column">
+            flexDirection="column"
+          >
             <Text
               color="#C43103"
               fontSize={{ base: "24px", md: "40px" }}
@@ -118,15 +119,17 @@ function Index() {
           height="127px"
           top="50px"
           right="404px"
-          src={BEG_1} />
+          src={BEG_1}
+        />
         <Text
           marginTop={{ base: px2vw(12), md: "38px" }}
           color="#FFF"
           fontSize={{ base: "16px", md: "32px" }}
-          fontWeight="400">
+          fontWeight="400"
+        >
           No Taxes, No Bullshit. It’s that simple.
         </Text>
-        <SimpleGrid
+        {/* <SimpleGrid
           display={{ base: "none", md: "grid" }}
           columns={5}
           w="1224px"
@@ -142,8 +145,8 @@ function Index() {
           <Card point={"10%"} context="Marketing"></Card>
           <Card point={"5%"} context="Team"></Card>
           <Card point={"10%"} context="Reserve"></Card>
-        </SimpleGrid  >
-        <Wrap
+        </SimpleGrid  > */}
+        {/* <Wrap
           display={{ base: "block", md: "none" }}
           w={px2vw(343)}
           h={px2vw(51)}
@@ -159,9 +162,10 @@ function Index() {
           <Card point={"10%"} context="Marketing"></Card>
           <Card point={"5%"} context="Team"></Card>
           <Card point={"10%"} context="Reserve"></Card>
-        </Wrap  >
+        </Wrap> */}
       </Flex>
-    </Flex>)
+    </Flex>
+  );
 }
 
 export default Index;

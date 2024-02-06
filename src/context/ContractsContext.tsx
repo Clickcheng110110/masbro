@@ -1,6 +1,10 @@
 import { createContext, useContext } from "react";
 import { useConfigContext } from "./ConfigContext";
-import { Factory__factory, RouterV2__factory } from "@/contracts/interface";
+import {
+  Erc20__factory,
+  Factory__factory,
+  RouterV2__factory,
+} from "@/contracts/interface";
 import { Contract } from "ethers";
 import { claimAbis } from "@/contracts/abis/claim";
 
@@ -21,12 +25,15 @@ export const useContracts = () => {
     signerOrProvider
   );
 
+  const begContract = Erc20__factory.connect(config.beg, signerOrProvider);
+
   const claimContract = new Contract(config.claim, claimAbis, signerOrProvider);
 
   return {
     factoryContract,
     routerV2Contract,
     claimContract,
+    begContract,
   };
 };
 

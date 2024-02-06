@@ -27,6 +27,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getEligible } from "@/apis";
 import useTransaction from "@/hooks/useTransaction";
 import { useContractsContext } from "@/context/ContractsContext";
+import { formatValue, fromWei } from "@/utils/common";
+import BigNumber from "bignumber.js";
+
+const MINT_TOTAL = "700000000000";
 
 function Index() {
   const animationOptions = {
@@ -35,7 +39,7 @@ function Index() {
   };
 
   const { View } = useLottie(animationOptions);
-  const { claimContract } = useContractsContext();
+  const { claimContract, begContract } = useContractsContext();
   const { config, address } = useConfigContext();
   const [isShowAnimation, setIsShowAnimation] = useState(false);
 
@@ -44,6 +48,29 @@ function Index() {
     queryFn: async ({ queryKey }) => {
       if (!queryKey[1]) return null;
       const res: any = await getEligible(queryKey[1] as string);
+
+      return res;
+    },
+  });
+
+  const getMintInfo = async () => {
+    try {
+      if (!config?.claim) return;
+      const balance = await begContract?.balanceOf(config?.claim as string);
+      const mintedTotal = new BigNumber(MINT_TOTAL)
+        .minus(fromWei(balance?.toString() as string)?.toString())
+        .toString();
+      return mintedTotal;
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const mintedInfoStatus = useQuery({
+    queryKey: ["mintedInfoStatus", config?.claim],
+    queryFn: async ({ queryKey }) => {
+      if (!queryKey[1]) return null;
+      const res: any = await getMintInfo();
 
       return res;
     },
@@ -65,6 +92,13 @@ function Index() {
       console.log("error", error);
     }
   };
+
+  const mintedValue = formatValue(mintedInfoStatus?.data);
+  const mintedProgress = new BigNumber(mintedInfoStatus?.data)
+    .dividedBy(MINT_TOTAL)
+    .multipliedBy(100)
+    .toNumber();
+
   return (
     <>
       <Flex
@@ -122,7 +156,7 @@ function Index() {
       </Text>
       <Progress
         colorScheme="yellow"
-        value={80}
+        value={mintedProgress}
         w={{ base: "90%", md: "800px" }}
         height="20px"
       />
@@ -136,8 +170,8 @@ function Index() {
         fontWeight="400"
         maxW={{ base: "90%", md: "800px" }}
       >
-        <Text>Minted:162 Beg</Text>
-        <Text>Total:2,000 Beg</Text>
+        <Text>Minted:{mintedValue} Beg</Text>
+        <Text>Total:{formatValue(MINT_TOTAL)} Beg</Text>
       </Flex>
 
       {address ? (

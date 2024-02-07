@@ -132,37 +132,9 @@ function Index() {
 
           <Stack direction="row" spacing="40px" alignItems="center">
             {render()}
-            {address ? (
-              isSupportChain ? (
-                <BaseButton colorType="yellow">
-                  {formatAddress(address)}
-                </BaseButton>
-              ) : (
-                <BaseButton
-                  colorType="yellow"
-                  onClick={() => {
-                    switchNetwork?.(supportChains?.[0]?.id);
-                  }}
-                >
-                  Network Error
-                </BaseButton>
-              )
-            ) : (
-              <BaseButton
-                onClick={() => {
-                  const isInstallMetamask = detectMetamask();
-                  if (!isInstallMetamask) {
-                    window.open("https://metamask.io/download.html", "_blank");
-                    return;
-                  }
-                  connect?.({
-                    connector: connectors?.[0],
-                  });
-                }}
-              >
-                Connect Wallet
-              </BaseButton>
-            )}
+            <BaseButton needLogin colorType="yellow">
+              {formatAddress(address)}
+            </BaseButton>
           </Stack>
         </Flex>
       </Box>
@@ -196,20 +168,9 @@ function Index() {
 
           <Stack direction="row" spacing="40px" alignItems="center">
             {address ? (
-              isSupportChain ? (
-                <BaseButton colorType="yellow">
-                  {formatAddress(address)}
-                </BaseButton>
-              ) : (
-                <BaseButton
-                  colorType="yellow"
-                  onClick={() => {
-                    switchNetwork?.(supportChains?.[0]?.id);
-                  }}
-                >
-                  Network Error
-                </BaseButton>
-              )
+              <BaseButton needLogin colorType="yellow">
+                {formatAddress(address)}
+              </BaseButton>
             ) : (
               <BaseButton
                 onClick={() => {

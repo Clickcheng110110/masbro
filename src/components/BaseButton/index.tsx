@@ -50,15 +50,24 @@ function Index({
         // boxShadow="inset 0px 0px 12px 1px #FFE178"
         pos="relative"
         h={{ base: px2vw(40), lg: "40px" }}
-        bgImage={colorType === "white" ? whiteButtonBg : yellowButtonBg}
+        bgImage={
+          colorType === "white" || !isConnected ? whiteButtonBg : yellowButtonBg
+        }
         bgSize={{ base: "100% 100%", lg: "100% 100%" }}
         bgRepeat="no-repeat"
         // borderRadius={{ base: px2vw(20), lg: "20px" }}
         fontSize={{ base: px2vw(24), lg: "24px" }}
         fontWeight="400"
-        color={colorType === "white" ? "black.100" : "rgba(196, 49, 3, 1)"}
+        color={
+          colorType === "white" || !isConnected
+            ? "black.100"
+            : "rgba(196, 49, 3, 1)"
+        }
         _loading={{
-          bgImage: colorType === "white" ? whiteButtonBg : yellowButtonBg,
+          bgImage:
+            colorType === "white" || !isConnected
+              ? whiteButtonBg
+              : yellowButtonBg,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

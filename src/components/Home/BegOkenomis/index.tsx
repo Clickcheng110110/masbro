@@ -60,7 +60,7 @@ function Index() {
         flexDirection="column"
         alignItems="center"
         position="relative"
-        h={{ base: px2vw(400), md: "792px" }}
+        h={{ base: px2vw(400), md: "492px" }}
         w={{ base: px2vw(995), md: "1989px" }}
       >
         <Image

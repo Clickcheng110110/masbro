@@ -87,11 +87,13 @@ function Index({
         }}
         {...props}
       >
-        {needLogin && !isConnected
-          ? "Connect Wallet"
-          : isSupportChain
-          ? children
-          : "Network Error"}
+        {needLogin
+          ? isConnected
+            ? isSupportChain
+              ? children
+              : "Network Error"
+            : "Connect Wallet"
+          : children}
       </Button>
       {/* {ConnectModal} */}
     </>

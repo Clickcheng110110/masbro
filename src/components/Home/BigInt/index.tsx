@@ -48,15 +48,16 @@ function Index() {
     queryFn: async ({ queryKey }) => {
       if (!queryKey[1]) return null;
       const res: any = await getEligible(queryKey[1] as string);
-
       return res;
     },
+    refetchOnMount: false,
   });
 
   const getMintInfo = async () => {
     try {
       if (!config?.claim) return;
       const balance = await begContract?.balanceOf(config?.claim as string);
+
       const mintedTotal = new BigNumber(MINT_TOTAL)
         .minus(fromWei(balance?.toString() as string)?.toString())
         .toString();
@@ -64,6 +65,16 @@ function Index() {
     } catch (error) {
       console.log("error", error);
     }
+  };
+
+  const getClaimedAmountInfo = async () => {
+    try {
+      const claimedAmounts = await claimContract?.claimedAmounts(
+        address as string
+      );
+      console.log("claimedAmounts", claimedAmounts);
+      return claimedAmounts;
+    } catch (error) {}
   };
 
   const mintedInfoStatus = useQuery({
@@ -74,12 +85,27 @@ function Index() {
 
       return res;
     },
+    refetchOnMount: false,
+  });
+
+  const claimedAmountsStatus = useQuery({
+    queryKey: ["claimedAmounts", config?.claim, address],
+    queryFn: async ({ queryKey }) => {
+      if (!queryKey[1] || !queryKey[2]) return null;
+      const res: any = await getClaimedAmountInfo();
+
+      return res;
+    },
+    refetchOnMount: false,
   });
 
   const claimTransaction = useTransaction(claimContract?.claim, {});
 
   const isEligible = getEligibleStatus?.data?.data?.signature;
 
+  const isClaimed = new BigNumber(claimedAmountsStatus?.data).isGreaterThan(0);
+  console.log("isClaimed", isClaimed);
+  console.log(" getEligibleStatus?.data?.data", getEligibleStatus?.data?.data);
   const handleMint = async () => {
     try {
       if (!isEligible) return;
@@ -175,7 +201,7 @@ function Index() {
       </Flex>
 
       {address ? (
-        isEligible ? (
+        isEligible && !isClaimed ? (
           <BaseButton
             isLoading={claimTransaction.loading}
             colorType="yellow"

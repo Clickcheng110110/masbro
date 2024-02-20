@@ -27,16 +27,18 @@ function Index({
 
   // const [ConnectModal, connectModalStatus] = useModal(ConnectModalContent);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (!isConnected) {
-      // connectModalStatus.onOpen();
-      connect?.({
-        connector: connectors?.[0],
-      });
-      return;
-    }
-    if (!isSupportChain) {
-      switchNetwork?.(supportChains?.[0]?.id);
-      return;
+    if (needLogin) {
+      if (!isConnected) {
+        // connectModalStatus.onOpen();
+        connect?.({
+          connector: connectors?.[0],
+        });
+        return;
+      }
+      if (!isSupportChain) {
+        switchNetwork?.(supportChains?.[0]?.id);
+        return;
+      }
     }
     onClick?.(e);
   };

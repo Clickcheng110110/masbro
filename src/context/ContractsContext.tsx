@@ -4,6 +4,7 @@ import {
   Erc20__factory,
   Factory__factory,
   RouterV2__factory,
+  Claim__factory,
 } from "@/contracts/interface";
 import { Contract } from "ethers";
 import { claimAbis } from "@/contracts/abis/claim";
@@ -27,7 +28,7 @@ export const useContracts = () => {
 
   const begContract = Erc20__factory.connect(config.beg, signerOrProvider);
 
-  const claimContract = new Contract(config.claim, claimAbis, signerOrProvider);
+  const claimContract = Claim__factory.connect(config.claim, signerOrProvider);
 
   return {
     factoryContract,

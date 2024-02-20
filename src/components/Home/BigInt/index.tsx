@@ -18,7 +18,7 @@ import { useContractsContext } from "@/context/ContractsContext";
 import { formatValue, fromWei } from "@/utils/common";
 import BigNumber from "bignumber.js";
 
-const MINT_TOTAL = "700000000000";
+const MINT_TOTAL = "800000000000";
 
 function Index() {
   const animationOptions = {

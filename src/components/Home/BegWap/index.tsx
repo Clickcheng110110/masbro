@@ -213,7 +213,7 @@ function Index() {
 
   const baggerFields = {
     token: beggarToken,
-    tokenName: "Beggar",
+    tokenName: "$Beg",
     balance: beggarBalance as string,
   };
 

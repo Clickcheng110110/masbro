@@ -357,11 +357,11 @@ function Index() {
         >
           {mode === ModeEnum.ETH ? (
             <Text fontSize={{ base: "16px", md: "24px" }} fontWeight="400">
-              1 ETH ≈ {ethTransferBagger} Beggar
+              1 ETH ≈ {ethTransferBagger} $Beg
             </Text>
           ) : (
             <Text fontSize={{ base: "16px", md: "24px" }} fontWeight="400">
-              1 Beggar ≈ {beggarTransferEth} ETH
+              1 $Beg ≈ {beggarTransferEth} ETH
             </Text>
           )}
 

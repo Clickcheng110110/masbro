@@ -27,4 +27,31 @@ export const blastSepolia = {
   },
 };
 
-export const blast = {};
+export const blast = {
+  id: 238,
+  name: "Blast Mainnet",
+  network: "Blast Mainnet",
+  nativeCurrency: {
+    decimals: 18,
+    name: "ETH",
+    symbol: "ETH",
+  },
+  rpcUrls: {
+    default: {
+      http: ["https://rpc.blastblockchain.com"],
+    },
+    public: {
+      http: ["https://rpc.blastblockchain.com"],
+    },
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "Blast Explorer",
+      url: "https://scan.blastblockchain.com",
+    },
+    default: {
+      name: "Blast Explorer",
+      url: "https://scan.blastblockchain.com",
+    },
+  },
+};

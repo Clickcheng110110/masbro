@@ -236,7 +236,7 @@ function Index() {
           Connect Wallet
         </BaseButton>
       )}
-      <Flex
+      {/* <Flex
         zIndex={10}
         marginTop={{ base: px2vw(40), md: "80px" }}
         w={{ base: "90%", md: "600px" }}
@@ -271,7 +271,7 @@ function Index() {
             TBA
           </Text>
         </Flex>
-      </Flex>
+      </Flex> */}
     </>
   );
 }

@@ -214,6 +214,19 @@ function Index() {
           >
             Mint
           </BaseButton>
+        ) : isClaimed ? (
+          <BaseButton
+            isLoading={
+              claimTransaction.loading ||
+              mintedInfoStatus?.isLoading ||
+              claimedAmountsStatus?.isLoading
+            }
+            isDisabled
+            marginBottom="53px"
+            width={{ base: px2vw(230), md: "240px" }}
+          >
+            Claimed
+          </BaseButton>
         ) : (
           <BaseButton
             isLoading={

@@ -37,6 +37,7 @@ function Index({
       }
       if (!isSupportChain) {
         switchNetwork?.(supportChains?.[0]?.id);
+        location.reload();
         return;
       }
     }

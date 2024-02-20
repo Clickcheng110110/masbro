@@ -44,22 +44,22 @@ function Index() {
   const links: LinkItem[] = [
     {
       label: "Twitter",
-      path: "/market",
-      isLink: false,
+      path: "https://twitter.com/beggarcoinblast",
+      isLink: true,
       isDisabled: false,
     },
-    {
-      label: "Telegram",
-      path: "/synthesis",
-      isLink: false,
-      isDisabled: false,
-    },
-    {
-      label: "Doc",
-      path: "/myNFT",
-      isLink: false,
-      isDisabled: false,
-    },
+    // {
+    //   label: "Telegram",
+    //   path: "/synthesis",
+    //   isLink: false,
+    //   isDisabled: false,
+    // },
+    // {
+    //   label: "Doc",
+    //   path: "/myNFT",
+    //   isLink: false,
+    //   isDisabled: false,
+    // },
   ];
 
   const handleLink = (item: LinkItem) => {

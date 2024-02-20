@@ -4,11 +4,11 @@ import bg1 from "@/assets/images/begger-bg-1.png";
 import bg2 from "@/assets/images/begger-bg-2.png";
 import bg3 from "@/assets/images/begger-bg-3.png";
 import begger from "@/assets/images/begger.png";
-import musicDisabled from "@/assets/images/music-disabled.png";
-import music from "@/assets/images/music.png";
+
 import { buttonHover } from "@/theme/utils/style";
 import { motion } from "framer-motion";
 import px2vw from "@/theme/utils/px2vw";
+import AudioPlayer from "@/components/AudioPlayer";
 
 interface TokenProps {
   name: string;
@@ -48,8 +48,6 @@ const Token = ({ name, delay = 0, ...otherProps }: TokenProps) => {
 };
 
 function Index() {
-  const [isPlay, setIsPlay] = useState(true);
-
   return (
     <Flex
       justifyContent="center"
@@ -58,18 +56,7 @@ function Index() {
       w={{ base: "100%", md: "1224px" }}
       h={{ base: px2vw(360), md: "525px" }}
     >
-      <Image
-        display={{ base: "none", md: "block" }}
-        zIndex={9}
-        position="absolute"
-        top="24px"
-        right="24px"
-        width="52px"
-        height="52px"
-        onClick={() => setIsPlay(!isPlay)}
-        src={isPlay ? music : musicDisabled}
-        _hover={buttonHover}
-      />
+      <AudioPlayer />
 
       <Image
         ignoreFallback

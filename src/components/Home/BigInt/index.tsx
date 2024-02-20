@@ -1,24 +1,12 @@
-import {
-  Flex,
-  Image,
-  Text,
-  ImageProps,
-  Box,
-  MergeWithAs,
-  Progress,
-} from "@chakra-ui/react";
+import { Flex, Image, Text, Box, Progress } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 import bigInt from "@/assets/images/begInt.png";
-import intIcon1 from "@/assets/images/int-icon-1.png";
 import intIcon2 from "@/assets/images/int-icon-2.png";
 import intBegger from "@/assets/images/int-begger.png";
 import buttonBgYellowSm from "@/assets/images/button-bg-white-yellow.png";
 
-import mint from "@/assets/images/mint.png";
-import { motion } from "framer-motion";
 import px2vw from "@/theme/utils/px2vw";
-import { buttonHover } from "@/theme/utils/style";
 import BaseButton from "@/components/BaseButton";
 import { useConfigContext } from "@/context/ConfigContext";
 import { useLottie } from "lottie-react";
@@ -39,7 +27,7 @@ function Index() {
   };
 
   const { View } = useLottie(animationOptions);
-  const { claimContract, begContract } = useContractsContext();
+  const { claimContract } = useContractsContext();
   const { config, address } = useConfigContext();
   const [isShowAnimation, setIsShowAnimation] = useState(false);
 
@@ -55,25 +43,33 @@ function Index() {
 
   const getMintInfo = async () => {
     try {
-      if (!config?.claim) return;
-      const balance = await begContract?.balanceOf(config?.claim as string);
+      const totalClaimed = await claimContract?.totalClaimed();
 
-      const mintedTotal = new BigNumber(MINT_TOTAL)
-        .minus(fromWei(balance?.toString() as string)?.toString())
-        .toString();
-      return mintedTotal;
+      const formatTotalClaimed = fromWei(totalClaimed?.toString() as string);
+      return formatTotalClaimed;
     } catch (error) {
       console.log("error", error);
     }
   };
+
+  // const getClaimedTotal = async () => {
+  //   try {
+  //     const totalClaimed = await claimContract?.totalClaimed();
+
+  //     const formatTotalClaimed = fromWei(totalClaimed?.toString() as string);
+  //     return formatTotalClaimed;
+  //   } catch (error) {}
+  // };
 
   const getClaimedAmountInfo = async () => {
     try {
       const claimedAmounts = await claimContract?.claimedAmounts(
         address as string
       );
-      console.log("claimedAmounts", claimedAmounts);
-      return claimedAmounts;
+      const formatClaimedAmounts = fromWei(
+        claimedAmounts?.toString() as string
+      );
+      return formatClaimedAmounts;
     } catch (error) {}
   };
 
@@ -104,8 +100,7 @@ function Index() {
   const isEligible = getEligibleStatus?.data?.data?.signature;
 
   const isClaimed = new BigNumber(claimedAmountsStatus?.data).isGreaterThan(0);
-  console.log("isClaimed", isClaimed);
-  console.log(" getEligibleStatus?.data?.data", getEligibleStatus?.data?.data);
+
   const handleMint = async () => {
     try {
       if (!isEligible) return;
@@ -116,11 +111,14 @@ function Index() {
       setIsShowAnimation(!isShowAnimation);
     } catch (error) {
       console.log("error", error);
+    } finally {
+      claimedAmountsStatus.refetch();
+      mintedInfoStatus.refetch();
     }
   };
 
-  const mintedValue = formatValue(mintedInfoStatus?.data);
-  const mintedProgress = new BigNumber(mintedInfoStatus?.data)
+  const mintedValue = formatValue(mintedInfoStatus?.data?.toString());
+  const mintedProgress = new BigNumber(mintedInfoStatus?.data?.toString())
     .dividedBy(MINT_TOTAL)
     .multipliedBy(100)
     .toNumber();
@@ -203,7 +201,11 @@ function Index() {
       {address ? (
         isEligible && !isClaimed ? (
           <BaseButton
-            isLoading={claimTransaction.loading}
+            isLoading={
+              claimTransaction.loading ||
+              mintedInfoStatus?.isLoading ||
+              claimedAmountsStatus?.isLoading
+            }
             colorType="yellow"
             marginBottom="53px"
             bgImage={buttonBgYellowSm}
@@ -214,6 +216,12 @@ function Index() {
           </BaseButton>
         ) : (
           <BaseButton
+            isLoading={
+              claimTransaction.loading ||
+              mintedInfoStatus?.isLoading ||
+              claimedAmountsStatus?.isLoading
+            }
+            isDisabled
             marginBottom="53px"
             width={{ base: px2vw(230), md: "240px" }}
           >

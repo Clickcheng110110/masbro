@@ -138,9 +138,7 @@ function Index() {
           ? [config?.beg as string, config.weth as string]
           : [config.weth as string, config.beg as string]
       );
-      const amountOutMin = new BigNumber(
-        amountsOut?.[isReverse ? 0 : 1]?.toString() as string
-      )
+      const amountOutMin = new BigNumber(amountsOut?.[1]?.toString() as string)
         .multipliedBy(1 - slippage)
         .toFixed(0);
       const toWeiInput = toWei(values.input as string)?.toString();

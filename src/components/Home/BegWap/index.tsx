@@ -1,5 +1,5 @@
-import { Box, Flex, Image, Text, Toast } from "@chakra-ui/react";
-import React, { Component, useState } from "react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 import begWap from "@/assets/images/begWap.png";
 import wapBg from "@/assets/images/wap-bg.png";
@@ -14,15 +14,10 @@ import whiteButtonLongBg from "@/assets/images/white-button-long-bg.png";
 
 import BaseButton from "@/components/BaseButton";
 import { useForm } from "react-hook-form";
-import { useContracts, useContractsContext } from "@/context/ContractsContext";
-import { useConfig, useConfigContext } from "@/context/ConfigContext";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  formatValue,
-  fromWei,
-  portalErrorTranslation,
-  toWei,
-} from "@/utils/common";
+import { useContractsContext } from "@/context/ContractsContext";
+import { useConfigContext } from "@/context/ConfigContext";
+import { useQuery } from "@tanstack/react-query";
+import { formatValue, fromWei, toWei } from "@/utils/common";
 import { buttonHover } from "@/theme/utils/style";
 import BigNumber from "bignumber.js";
 import useTransaction from "@/hooks/useTransaction";
@@ -89,12 +84,12 @@ function Index() {
     address: address,
   });
 
-  const getAmountsOut = async (amountIn: string) => {
+  const getAmountsOut = async (amountIn: string, path: [string, string]) => {
     const formatAmountIn = toWei(amountIn)?.toString();
-    const amountOut = await routerV2Contract?.getAmountsOut(formatAmountIn, [
-      config?.weth as string,
-      config?.beg as string,
-    ]);
+    const amountOut = await routerV2Contract?.getAmountsOut(
+      formatAmountIn,
+      path
+    );
     return amountOut;
   };
 
@@ -105,10 +100,13 @@ function Index() {
     queryKey: ["getAmountOut", values.input, isReverse],
     queryFn: async ({ queryKey }) => {
       if (!queryKey[1]) return null;
-      const res: any = await getAmountsOut(queryKey[1] as string);
-      const amountOutMin = new BigNumber(
-        res?.[isReverse ? 0 : 1]?.toString() as string
-      )
+      const res: any = await getAmountsOut(
+        queryKey[1] as string,
+        isReverse
+          ? [config?.beg as string, config.weth as string]
+          : [config.weth as string, config.beg as string]
+      );
+      const amountOutMin = new BigNumber(res?.[1]?.toString() as string)
         .multipliedBy(1 - slippage)
         .toString();
       setValue("output", fromWei(amountOutMin)?.toString());
@@ -119,7 +117,10 @@ function Index() {
   const getAmountOutInitQuery = useQuery({
     queryKey: ["getAmountOutOnce"],
     queryFn: async () => {
-      const res: any = await getAmountsOut("1");
+      const res: any = await getAmountsOut("1", [
+        config.weth as string,
+        config.beg as string,
+      ]);
       return res;
     },
     refetchInterval: 5000,
@@ -128,7 +129,12 @@ function Index() {
   const handleSwap = async () => {
     try {
       // await getAmountOutQuery.refetch();
-      const amountsOut = await getAmountsOut(values.input as string);
+      const amountsOut = await getAmountsOut(
+        values.input as string,
+        isReverse
+          ? [config?.beg as string, config.weth as string]
+          : [config.weth as string, config.beg as string]
+      );
       const amountOutMin = new BigNumber(
         amountsOut?.[isReverse ? 0 : 1]?.toString() as string
       )

@@ -100,11 +100,12 @@ function Index() {
     queryKey: ["getAmountOut", values.input, isReverse],
     queryFn: async ({ queryKey }) => {
       if (!queryKey[1]) return null;
+      if (!config) return null;
       const res: any = await getAmountsOut(
         queryKey[1] as string,
         isReverse
           ? [config?.beg as string, config.weth as string]
-          : [config.weth as string, config.beg as string]
+          : [config?.weth as string, config?.beg as string]
       );
       const amountOutMin = new BigNumber(res?.[1]?.toString() as string)
         .multipliedBy(1 - slippage)
@@ -118,8 +119,8 @@ function Index() {
     queryKey: ["getAmountOutOnce"],
     queryFn: async () => {
       const res: any = await getAmountsOut("1", [
-        config.weth as string,
-        config.beg as string,
+        config?.weth as string,
+        config?.beg as string,
       ]);
       return res;
     },
@@ -129,6 +130,8 @@ function Index() {
   const handleSwap = async () => {
     try {
       // await getAmountOutQuery.refetch();
+      if (!config || !values) return;
+
       const amountsOut = await getAmountsOut(
         values.input as string,
         isReverse

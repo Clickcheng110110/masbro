@@ -185,6 +185,7 @@ function Index() {
         height="20px"
       />
       <Flex
+        flexDirection={{ base: "column", md: "row" }}
         marginTop={{ base: "12px", md: "20px" }}
         marginBottom="24px"
         width="100%"

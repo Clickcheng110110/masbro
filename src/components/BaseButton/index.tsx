@@ -49,7 +49,7 @@ function Index({
         onClick={handleClick}
         isDisabled={isDisabled}
         colorScheme="black"
-        w="full"
+        w="auto"
         // boxShadow="inset 0px 0px 12px 1px #FFE178"
         pos="relative"
         h={{ base: px2vw(40), lg: "40px" }}

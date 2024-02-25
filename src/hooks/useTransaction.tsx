@@ -10,7 +10,7 @@ interface Option<Params> {
 
 function useTransaction<Params = any, Response = any>(
   method: any,
-  { args = [], wait = false }: Option<Params>
+  { args = [], wait = true }: Option<Params>
 ) {
   const [result, setResult] = useState<Response>();
   const [error, setError] = useState<any>();

@@ -245,7 +245,7 @@ function Index() {
       alignItems="center"
       h={{ base: "100%", md: "950px" }}
       w={{ base: "100%", md: "1224px" }}
-      marginTop="-10px"
+      marginTop="120px"
     >
       <Image
         position="absolute"

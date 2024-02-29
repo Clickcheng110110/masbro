@@ -25,6 +25,7 @@ const card_4 = {
 function Index() {
   return (
     <Flex
+      marginTop={{ base: px2vw(60), md: "128" }}
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
@@ -59,9 +60,7 @@ function Index() {
           src={back}
         />
 
-        <SimpleGrid
-          columns={{ base: 1, md: 2 }}
-        >
+        <SimpleGrid columns={{ base: 1, md: 2 }}>
           <Flex
             paddingRight={{ base: "none", md: "29px" }}
             paddingBottom={{ base: "13px", md: "26px" }}

@@ -20,6 +20,8 @@ import BigNumber from "bignumber.js";
 
 const MINT_TOTAL = "800000000000";
 
+const MINTED_TOTAL = "760700000000";
+
 function Index() {
   const animationOptions = {
     animationData: begAnimation,
@@ -27,98 +29,12 @@ function Index() {
   };
 
   const { View } = useLottie(animationOptions);
-  const { claimContract } = useContractsContext();
-  const { config, address } = useConfigContext();
-  const [isShowAnimation, setIsShowAnimation] = useState(false);
+  const {} = useContractsContext();
+  const {} = useConfigContext();
+  const [isShowAnimation] = useState(false);
 
-  const getEligibleStatus = useQuery({
-    queryKey: ["getAmountOut", address],
-    queryFn: async ({ queryKey }) => {
-      if (!queryKey[1]) return null;
-      const res: any = await getEligible(queryKey[1] as string);
-      return res;
-    },
-    refetchOnMount: false,
-  });
-
-  const getMintInfo = async () => {
-    try {
-      const totalClaimed = await claimContract?.totalClaimed();
-
-      const formatTotalClaimed = fromWei(totalClaimed?.toString() as string);
-      return formatTotalClaimed;
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  // const getClaimedTotal = async () => {
-  //   try {
-  //     const totalClaimed = await claimContract?.totalClaimed();
-
-  //     const formatTotalClaimed = fromWei(totalClaimed?.toString() as string);
-  //     return formatTotalClaimed;
-  //   } catch (error) {}
-  // };
-
-  const getClaimedAmountInfo = async () => {
-    try {
-      const claimedAmounts = await claimContract?.claimedAmounts(
-        address as string
-      );
-      const formatClaimedAmounts = fromWei(
-        claimedAmounts?.toString() as string
-      );
-      return formatClaimedAmounts;
-    } catch (error) {}
-  };
-
-  const mintedInfoStatus = useQuery({
-    queryKey: ["mintedInfoStatus", config?.claim],
-    queryFn: async ({ queryKey }) => {
-      if (!queryKey[1]) return null;
-      const res: any = await getMintInfo();
-
-      return res;
-    },
-    refetchOnMount: false,
-  });
-
-  const claimedAmountsStatus = useQuery({
-    queryKey: ["claimedAmounts", config?.claim, address],
-    queryFn: async ({ queryKey }) => {
-      if (!queryKey[1] || !queryKey[2]) return null;
-      const res: any = await getClaimedAmountInfo();
-
-      return res;
-    },
-    refetchOnMount: false,
-  });
-
-  const claimTransaction = useTransaction(claimContract?.claim, {});
-
-  const isEligible = getEligibleStatus?.data?.data?.signature;
-
-  const isClaimed = new BigNumber(claimedAmountsStatus?.data).isGreaterThan(0);
-
-  const handleMint = async () => {
-    try {
-      if (!isEligible) return;
-      await claimTransaction.run(
-        getEligibleStatus?.data?.data?.amount,
-        getEligibleStatus?.data?.data?.signature
-      );
-      setIsShowAnimation(!isShowAnimation);
-    } catch (error) {
-      console.log("error", error);
-    } finally {
-      claimedAmountsStatus.refetch();
-      mintedInfoStatus.refetch();
-    }
-  };
-
-  const mintedValue = formatValue(mintedInfoStatus?.data?.toString());
-  const mintedProgress = new BigNumber(mintedInfoStatus?.data?.toString())
+  const mintedValue = formatValue(MINTED_TOTAL);
+  const mintedProgress = new BigNumber(mintedValue)
     .dividedBy(MINT_TOTAL)
     .multipliedBy(100)
     .toNumber();
@@ -176,7 +92,7 @@ function Index() {
         fontWeight="400"
         textAlign="center"
       >
-        Rap the pac to mint, the first 2,000 guys will be able to mint $Beg
+        Initial eBeggar membership: 2343
       </Text>
       <Progress
         colorScheme="yellow"
@@ -198,7 +114,13 @@ function Index() {
         <Text>Minted:{mintedValue} Beg</Text>
         <Text>Total:{formatValue(MINT_TOTAL)} Beg</Text>
       </Flex>
-
+      <BaseButton
+        isDisabled
+        marginBottom="53px"
+        width={{ base: px2vw(230), md: "240px" }}
+      >
+        Ended
+      </BaseButton>
       {/* {address ? (
         isEligible && !isClaimed ? (
           <BaseButton

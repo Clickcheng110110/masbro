@@ -92,7 +92,7 @@ function Index() {
         fontWeight="400"
         textAlign="center"
       >
-        Initial eBeggar membership: 2343
+        2,343 e-Beggars Minted
       </Text>
       <Progress
         colorScheme="yellow"

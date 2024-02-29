@@ -30,8 +30,8 @@ function AudioPlayer() {
         position="absolute"
         top="24px"
         right="24px"
-        width="52px"
-        height="52px"
+        width="82px"
+        height="82px"
         onClick={() => togglePlay()}
         src={isPlaying ? music : musicDisabled}
         _hover={buttonHover}

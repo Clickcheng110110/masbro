@@ -60,17 +60,9 @@ function Index() {
         flexDirection="column"
         alignItems="center"
         position="relative"
-        h={{ base: px2vw(400), md: "492px" }}
+        h={{ base: px2vw(400), md: "292px" }}
         w={{ base: px2vw(995), md: "1989px" }}
       >
-        <Image
-          display={{ base: "none", md: "block" }}
-          position="absolute"
-          width={{ base: "100%", md: "1989px" }}
-          height={{ base: "100%", md: "792px" }}
-          marginTop={{ base: "0px", md: "19px" }}
-          src={BEG_2}
-        />
         <Image
           display={{ base: "block", md: "none" }}
           position="absolute"
@@ -127,7 +119,7 @@ function Index() {
           fontSize={{ base: "16px", md: "32px" }}
           fontWeight="400"
         >
-          No Taxes, No Bullshit. It’s that simple.
+          No Points, No Taxes, No Bullshit. It’s that simple.
         </Text>
         {/* <SimpleGrid
           display={{ base: "none", md: "grid" }}

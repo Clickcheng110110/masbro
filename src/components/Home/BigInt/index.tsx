@@ -42,7 +42,6 @@ function Index() {
   return (
     <>
       <Flex
-        marginTop="128px"
         flexDirection="column"
         justifyContent="center"
         alignItems="center"

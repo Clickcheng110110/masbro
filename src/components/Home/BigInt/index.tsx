@@ -199,7 +199,7 @@ function Index() {
         <Text>Total:{formatValue(MINT_TOTAL)} Beg</Text>
       </Flex>
 
-      {address ? (
+      {/* {address ? (
         isEligible && !isClaimed ? (
           <BaseButton
             isLoading={
@@ -249,7 +249,7 @@ function Index() {
         >
           Connect Wallet
         </BaseButton>
-      )}
+      )} */}
       {/* <Flex
         zIndex={10}
         marginTop={{ base: px2vw(40), md: "80px" }}

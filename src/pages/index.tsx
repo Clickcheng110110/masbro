@@ -17,8 +17,8 @@ export default function Home() {
       as="main"
     >
       <Begger />
-      {isClient && <BigInt />}
       {isClient && <BegWap />}
+      {isClient && <BigInt />}
 
       <BegRoadMap />
       <BegOkenomis />

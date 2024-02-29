@@ -1,6 +1,5 @@
+import { isDev } from "@/config";
 import axios from "axios";
-
-export const isDev = false;
 
 export const API_BASE_PATH = "https://beggarapi.vercel.app";
 export const API_TEST_PATH = "https://beggarapi.vercel.app";

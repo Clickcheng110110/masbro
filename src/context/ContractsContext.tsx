@@ -6,8 +6,6 @@ import {
   RouterV2__factory,
   Claim__factory,
 } from "@/contracts/interface";
-import { Contract } from "ethers";
-import { claimAbis } from "@/contracts/abis/claim";
 
 export type IContractContext = Partial<ReturnType<typeof useContracts>>;
 export const ContractsContext = createContext<IContractContext>({});

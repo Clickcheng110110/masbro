@@ -1,4 +1,4 @@
-import config from "@/config";
+import config, { isDev } from "@/config";
 import { bscTestnet, bsc } from "viem/chains";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Signer, ethers } from "ethers";
@@ -16,8 +16,8 @@ import {
 
 import * as allChains from "wagmi/chains";
 import { supportChains } from "@/pages/_app";
-import { isDev } from "@/utils/request";
-import { blastSepolia } from "@/config/chains";
+
+import { blast, blastSepolia } from "@/config/chains";
 
 export type UnwrapPromise<T> = T extends Promise<infer U> ? U : never;
 export type IConfigContext = Partial<ReturnType<typeof useConfig>>;
@@ -44,7 +44,7 @@ export function useConfig() {
       : null
     : isDev
     ? config[blastSepolia.id]
-    : config[blastSepolia.id];
+    : config[blast.id];
 
   useEffect(() => {
     const getSignerAndProvider = async () => {

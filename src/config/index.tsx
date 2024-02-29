@@ -40,6 +40,10 @@ export interface IConfig {
   claim: string;
 }
 
+export const isDev = process.env.NEXT_PUBLIC_BRANCH === "dev";
+
+console.log("isDev", isDev, process.env.NEXT_PUBLIC_BRANCH);
+
 const config: Record<string, IConfig> = {
   [blastSepolia.id]: {
     beg: "0x63b21aF3C4a6421954832e389771515080ab1308",

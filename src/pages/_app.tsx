@@ -22,10 +22,11 @@ import { ContractsProvider } from "@/context/ContractsContext";
 import "react-toastify/dist/ReactToastify.css";
 import "@/styles/globals.css";
 import { useEffect } from "react";
-import { isDev } from "@/utils/request";
-import { blast, blastSepolia } from "@/config/chains";
 
-export const supportChains = isDev ? [blastSepolia] : [blastSepolia];
+import { blast, blastSepolia } from "@/config/chains";
+import { isDev } from "@/config";
+
+export const supportChains = !isDev ? [blast] : [blastSepolia];
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   supportChains,

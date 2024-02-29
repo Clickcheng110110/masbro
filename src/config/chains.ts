@@ -28,7 +28,7 @@ export const blastSepolia = {
 };
 
 export const blast = {
-  id: 238,
+  id: 81457,
   name: "Blast Mainnet",
   network: "Blast Mainnet",
   nativeCurrency: {

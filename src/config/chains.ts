@@ -38,20 +38,20 @@ export const blast = {
   },
   rpcUrls: {
     default: {
-      http: ["https://blast.blockpi.network/v1/rpc/public"],
+      http: ["https://rpc.blast.io/"],
     },
     public: {
-      http: ["https://blast.blockpi.network/v1/rpc/public"],
+      http: ["https://rpc.blast.io/"],
     },
   },
   blockExplorers: {
     etherscan: {
       name: "Blast Explorer",
-      url: "https://blast.io/",
+      url: "https://blastscan.io/",
     },
     default: {
       name: "Blast Explorer",
-      url: "https://blast.io/",
+      url: "https://blastscan.io/",
     },
   },
 };

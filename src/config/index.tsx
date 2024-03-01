@@ -52,13 +52,13 @@ const config: Record<string, IConfig> = {
     weth: "0x4200000000000000000000000000000000000023",
     claim: "0x37095f9440614bCf5a25786bD938D4ace9DCca4e",
   },
-  // [blast.id]: {
-  //   beg: "0x63b21aF3C4a6421954832e389771515080ab1308",
-  //   routerV2: "0x61BcE66E0236199796bbFf68f7E3fB0ACEDa546D",
-  //   factory: "0xe37ACCebEf1dC02306701D7F94eeA5D9e149379C",
-  //   weth: "0x4200000000000000000000000000000000000023",
-  //   claim: "0x37095f9440614bCf5a25786bD938D4ace9DCca4e",
-  // },
+  [blast.id]: {
+    beg: "0x215f4cd7e4e21ac125f3135a767b2fdd9bc0f163",
+    routerV2: "0xD71268AeEdc60Bc2F5cE7B9296ab85E717Cd2E93",
+    factory: "0x834c840c3082745973B96165CaDaa10E2Cf11baa",
+    weth: "0x4300000000000000000000000000000000000004",
+    claim: "0x37095f9440614bCf5a25786bD938D4ace9DCca4e",
+  },
 };
 
 export default config;

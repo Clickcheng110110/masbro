@@ -270,3 +270,43 @@ export const formatInputValue = (value: string) => {
 
   return value;
 };
+
+export const addToken = async () => {
+  if (typeof window.ethereum === "undefined") {
+    console.log("请安装 MetaMask");
+  } else {
+    const provider = window.ethereum;
+
+    // 请求用户授权访问钱包账号
+    provider
+      .request({ method: "eth_requestAccounts" })
+      .then(() => {
+        // 添加代币到 MetaMask
+        provider
+          .request({
+            method: "wallet_watchAsset",
+            params: {
+              type: "ERC20",
+              options: {
+                address: tokenAddress,
+                symbol: tokenSymbol,
+                decimals: tokenDecimals,
+              },
+            },
+          })
+          .then((success) => {
+            if (success) {
+              console.log("代币已成功添加到 MetaMask");
+            } else {
+              console.log("添加代币到 MetaMask 失败");
+            }
+          })
+          .catch((error) => {
+            console.log("添加代币到 MetaMask 出错", error);
+          });
+      })
+      .catch((error) => {
+        console.log("授权访问账号失败", error);
+      });
+  }
+};

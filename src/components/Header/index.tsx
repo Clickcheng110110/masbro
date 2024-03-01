@@ -48,6 +48,12 @@ function Index() {
       isLink: true,
       isDisabled: false,
     },
+    {
+      label: "Swap",
+      path: "https://app.thruster.finance/?token2=0x215F4Cd7E4e21Ac125f3135A767b2FDd9bc0f163",
+      isLink: true,
+      isDisabled: false,
+    },
     // {
     //   label: "Telegram",
     //   path: "/synthesis",

@@ -54,7 +54,7 @@ const config: Record<string, IConfig> = {
   },
   [blast.id]: {
     beg: "0x215f4cd7e4e21ac125f3135a767b2fdd9bc0f163",
-    routerV2: "0xeF01834c9B5F40a79Bbf8632F88996B600041598",
+    routerV2: "0x98994a9a7a2570367554589189dc9772241650f6",
     factory: "0xB2baD75be3dE544475121AE258b02fefDb55a602",
     weth: "0x4300000000000000000000000000000000000004",
     claim: "0x37095f9440614bCf5a25786bD938D4ace9DCca4e",

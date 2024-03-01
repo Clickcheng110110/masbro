@@ -35,7 +35,7 @@ export function useConfig() {
   const { disconnect } = useDisconnect();
   const balanceStatus = useBalance({ address: address });
   const switchNetworkStatus = useSwitchNetwork();
-
+  console.log("wagmiChain", wagmiChain);
   const chain = wagmiChain || defaultChain;
   const isSupportChain = !!supportChains.find((item) => item.id === chain?.id);
   const curChianConfig = isSupportChain
@@ -55,13 +55,15 @@ export function useConfig() {
       );
 
       const provider = new ethers.providers.JsonRpcProvider(
-        blastSepolia?.rpcUrls?.default?.http[0]
+        isDev
+          ? blastSepolia?.rpcUrls?.default?.http[0]
+          : blast?.rpcUrls?.default?.http[0]
       );
       const ethereumProvider = new ethers.providers.Web3Provider(
         (window as any).ethereum
       );
       const signer = ethereumProvider.getSigner();
-      setDefaultChain(chain);
+      setDefaultChain(isDev ? blastSepolia : blast);
       setProvider(isConnected && isSupportChain ? ethereumProvider : provider);
       setSigner(isConnected && isSupportChain ? signer : null);
     };

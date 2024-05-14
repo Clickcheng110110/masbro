@@ -50,9 +50,9 @@ function Index() {
     },
     {
       label: "Swap",
-      path: "https://app.thruster.finance/?token2=0x215F4Cd7E4e21Ac125f3135A767b2FDd9bc0f163",
+      path: "https://quickswap.exchange/#/swap?swapIndex=2&currency1=0x92736C28A60Fc9D0cd46231962b73f4bd2359004",
       isLink: true,
-      isDisabled: true,
+      isDisabled: false,
     },
     {
       label: "Telegram",

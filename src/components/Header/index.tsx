@@ -60,12 +60,12 @@ function Index() {
       isLink: true,
       isDisabled: false,
     },
-    // {
-    //   label: "Telegram",
-    //   path: "/synthesis",
-    //   isLink: false,
-    //   isDisabled: false,
-    // },
+    {
+      label: "Dexscreener",
+      path: "https://dexscreener.com/manta/0xd6d69586c079c0b453aabb4dfbe328db043e8c94",
+      isLink: true,
+      isDisabled: false,
+    },
     // {
     //   label: "Doc",
     //   path: "/myNFT",

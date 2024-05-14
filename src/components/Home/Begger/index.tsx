@@ -97,7 +97,7 @@ function Index() {
         position="absolute"
         left={{ base: `calc(50% - ${px2vw(180)})`, md: "calc(50% - 180px)" }}
         top="132px"
-        w={{ base: "100%", md: "360px" }}
+        w={{ base: "100%", md: "320px" }}
       >
         <Image
           position="absolute"
@@ -147,7 +147,19 @@ function Index() {
         >
           Woof-Woof Woof-Woof
         </Text>
+        <Text
+          zIndex={9}
+          marginTop="30px"
+          color="#ffffff"
+          fontSize={{ base: "20px", md: "32px" }}
+          lineHeight={{ base: "20px", md: "32px" }}
+          fontWeight="400"
+          whiteSpace={{ base: "normal", md: "nowrap" }}
+        >
+          CA: 0x92736c28a60fc9d0cd46231962b73f4bd2359004
+        </Text>
       </Flex>
+
       <Flex
         marginTop={{ base: px2vw(370), md: "260px" }}
         gap="16px"

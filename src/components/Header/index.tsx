@@ -54,6 +54,12 @@ function Index() {
       isLink: true,
       isDisabled: true,
     },
+    {
+      label: "Telegram",
+      path: "https://t.me/masbromanta",
+      isLink: true,
+      isDisabled: false,
+    },
     // {
     //   label: "Telegram",
     //   path: "/synthesis",

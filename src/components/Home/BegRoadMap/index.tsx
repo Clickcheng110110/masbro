@@ -37,7 +37,7 @@ function Index() {
         marginTop={{ base: px2vw(80), md: "94px" }}
         fontSize={{ base: "24px", md: "48px" }}
       >
-        MASBRO-ROADMAP
+        MASBROROADMAP
       </Box>
       <Flex
         w={{ base: px2vw(540), md: "1212px" }}

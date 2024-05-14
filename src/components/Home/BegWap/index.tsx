@@ -264,7 +264,7 @@ function Index() {
         marginTop={{ base: px2vw(80), md: "94px" }}
         fontSize={{ base: "24px", md: "48px" }}
       >
-        MASBRO-WAP
+        MASBROSWAP
       </Box>
 
       <Flex

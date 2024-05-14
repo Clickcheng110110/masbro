@@ -7,9 +7,11 @@ import wapChange from "@/assets/images/wap-change.svg";
 import TokenInput from "@/components/TokenInput";
 
 import ETH from "@/assets/images/ETH.png";
-import beggarToken from "@/assets/images/beggar-token.png";
+import pic1 from "@/assets/images/pic1.png";
+import pic2 from "@/assets/images/pic2.png";
 import tokenSelect from "@/assets/images/tokenSelect.svg";
 import change from "@/assets/images/change.svg";
+import logo from "@/assets/images/logo.png";
 import whiteButtonLongBg from "@/assets/images/white-button-long-bg.png";
 
 import BaseButton from "@/components/BaseButton";
@@ -219,8 +221,8 @@ function Index() {
   };
 
   const baggerFields = {
-    token: beggarToken,
-    tokenName: "$Beg",
+    token: pic2,
+    tokenName: "$MASBRO",
     balance: beggarBalance as string,
   };
 
@@ -256,12 +258,14 @@ function Index() {
         opacity="0.3"
         src={wapBg}
       />
-      <Image
-        width={{ base: px2vw(133), md: "280px" }}
-        height={{ base: px2vw(44), md: "87px" }}
+      <Box
+        // width={{ base: px2vw(133), md: "280px" }}
+        // height={{ base: px2vw(44), md: "87px" }}
         marginTop={{ base: px2vw(80), md: "94px" }}
-        src={begWap}
-      />
+        fontSize={{ base: "24px", md: "48px" }}
+      >
+        MASBRO-WAP
+      </Box>
 
       <Flex
         zIndex={10}
@@ -362,15 +366,9 @@ function Index() {
           alignItems="center"
           gap="12px"
         >
-          {mode === ModeEnum.ETH ? (
-            <Text fontSize={{ base: "16px", md: "24px" }} fontWeight="400">
-              1 ETH ≈ {ethTransferBagger} $Beg
-            </Text>
-          ) : (
-            <Text fontSize={{ base: "16px", md: "24px" }} fontWeight="400">
-              1 $Beg ≈ {beggarTransferEth} ETH
-            </Text>
-          )}
+          <Text fontSize={{ base: "16px", md: "24px" }} fontWeight="400">
+            --
+          </Text>
 
           <Image
             onClick={() => {
@@ -382,42 +380,23 @@ function Index() {
             _hover={buttonHover}
           />
         </Flex>
-        {!isEnough && shouldVerify ? (
-          <BaseButton
-            onClick={() => {
-              approveState.run();
-            }}
-            needLogin
-            isLoading={approveState.loading}
-            colorType="white"
-            bgImage={whiteButtonLongBg}
-            _loading={{
-              bgImage: whiteButtonLongBg,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            Approve
-          </BaseButton>
-        ) : (
-          <BaseButton
-            onClick={handleSwap}
-            needLogin
-            isDisabled={isSwapDisabled}
-            isLoading={isSwapLoading}
-            colorType="white"
-            bgImage={whiteButtonLongBg}
-            _loading={{
-              bgImage: whiteButtonLongBg,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            Swap
-          </BaseButton>
-        )}
+        <BaseButton
+          // onClick={handleSwap}
+
+          needLogin
+          isDisabled={true}
+          isLoading={isSwapLoading}
+          colorType="white"
+          bgImage={whiteButtonLongBg}
+          _loading={{
+            bgImage: whiteButtonLongBg,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Coming soon
+        </BaseButton>
       </Flex>
       <Flex
         display={{ base: "none", md: "flex" }}

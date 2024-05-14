@@ -18,7 +18,7 @@ export default function Home() {
     >
       <Begger />
       {isClient && <BegWap />}
-      {isClient && <BigInt />}
+      {/* {isClient && <BigInt />} */}
 
       <BegRoadMap />
       <BegOkenomis />

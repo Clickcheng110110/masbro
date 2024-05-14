@@ -4,7 +4,7 @@ import bg1 from "@/assets/images/begger-bg-1.png";
 import bg2 from "@/assets/images/begger-bg-2.png";
 import bg3 from "@/assets/images/begger-bg-3.png";
 import begger from "@/assets/images/begger.png";
-
+import pic1 from "@/assets/images/pic1.png";
 import { buttonHover } from "@/theme/utils/style";
 import { motion } from "framer-motion";
 import px2vw from "@/theme/utils/px2vw";
@@ -100,12 +100,35 @@ function Index() {
         w={{ base: "100%", md: "360px" }}
       >
         <Image
-          w={{ base: px2vw(180), md: "360px" }}
-          h={{ base: px2vw(75), md: "121px" }}
+          position="absolute"
+          top={{ base: "0px" }}
+          left={{ base: "30px" }}
+          opacity={0.4}
+          // w={{ base: px2vw(180), md: "360px" }}
+          // h={{ base: px2vw(75), md: "121px" }}
           objectFit="contain"
-          src={begger}
+          src={pic1}
         />
-
+        <Image
+          position="absolute"
+          top={{ base: "0px" }}
+          left={{ base: "-280px" }}
+          opacity={0.4}
+          // w={{ base: px2vw(180), md: "360px" }}
+          // h={{ base: px2vw(75), md: "121px" }}
+          objectFit="contain"
+          src={pic1}
+        />
+        <Image
+          position="absolute"
+          top={{ base: "0px" }}
+          left={{ base: "330px" }}
+          opacity={0.4}
+          // w={{ base: px2vw(180), md: "360px" }}
+          // h={{ base: px2vw(75), md: "121px" }}
+          objectFit="contain"
+          src={pic1}
+        />
         <Text
           color="#FFC300"
           marginTop="12px"
@@ -114,7 +137,7 @@ function Index() {
           lineHeight={{ base: "20px", md: "32px" }}
           fontWeight="400"
         >
-          Disregard All Else
+          Dive into Masbro
         </Text>
         <Text
           color="#FFC300"
@@ -122,40 +145,40 @@ function Index() {
           lineHeight={{ base: "20px", md: "32px" }}
           fontWeight="400"
         >
-          Eat Points Save Pacman
+          Woof-Woof Woof-Woof
         </Text>
       </Flex>
       <Flex
-        marginTop={{ base: px2vw(370), md: "460px" }}
+        marginTop={{ base: px2vw(370), md: "260px" }}
         gap="16px"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
       >
         <Flex gap="16px" display={{ base: "none", md: "flex" }}>
-          <Token name="BEG" delay={0.1}></Token>
-          <Token name="BEG" delay={0.2}></Token>
-          <Token name="BEG" delay={0.3}></Token>
-          <Token name="BEG" delay={0.4}></Token>
-          <Token name="BEG" delay={0.5}></Token>
+          <Token name="MASBRO" delay={0.1}></Token>
+          <Token name="MASBRO" delay={0.2}></Token>
+          <Token name="MASBRO" delay={0.3}></Token>
+          <Token name="MASBRO" delay={0.4}></Token>
+          <Token name="MASBRO" delay={0.5}></Token>
         </Flex>
         <Flex gap="16px">
-          <Token name="BEG" delay={0.6}></Token>
-          <Token name="BEG" delay={0.7}></Token>
-          <Token name="BEG" delay={0.8}></Token>
-          <Token name="BEG" delay={0.9}></Token>
+          <Token name="MASBRO" delay={0.6}></Token>
+          <Token name="MASBRO" delay={0.7}></Token>
+          <Token name="MASBRO" delay={0.8}></Token>
+          <Token name="MASBRO" delay={0.9}></Token>
         </Flex>
         <Flex gap="16px">
-          <Token name="BEG" delay={1}></Token>
-          <Token name="BEG" delay={1.1}></Token>
-          <Token name="BEG" delay={1.2}></Token>
+          <Token name="MASBRO" delay={1}></Token>
+          <Token name="MASBRO" delay={1.1}></Token>
+          <Token name="MASBRO" delay={1.2}></Token>
         </Flex>
         <Flex gap="16px">
-          <Token name="BEG" delay={1.3}></Token>
-          <Token name="BEG" delay={1.4}></Token>
+          <Token name="MASBRO" delay={1.3}></Token>
+          <Token name="MASBRO" delay={1.4}></Token>
         </Flex>
         <Flex gap="16px">
-          <Token name="BEG" delay={1.5}></Token>
+          <Token name="MASBRO" delay={1.5}></Token>
         </Flex>
       </Flex>
     </Flex>

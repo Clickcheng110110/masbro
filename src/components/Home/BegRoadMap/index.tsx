@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Flex, Image, SimpleGrid } from "@chakra-ui/react";
+import { Box, Flex, Image, SimpleGrid } from "@chakra-ui/react";
 import title from "@/assets/images/BEG-ROADMAP.png";
 import back from "@/assets/images/BG-RM-BG.png";
 import Card from "@/components/Card";
@@ -19,27 +19,26 @@ const card_3 = {
 };
 const card_4 = {
   title: "Phase 4",
-  context: "Beg for Everything",
+  context: "Masbro for Everything",
 };
 
 function Index() {
   return (
     <Flex
-      marginTop={{ base: px2vw(60), md: "128" }}
+      marginTop={{ base: px2vw(60), md: "0px" }}
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
       position="relative"
     >
-      <Image
-        zIndex={0}
-        w={{ base: px2vw(200), md: "440px" }}
-        h={{ base: px2vw(40), md: "87px" }}
-        src={title}
-        alt="title"
-        objectFit="contain"
-        marginTop={{ base: px2vw(80), md: "-55px" }}
-      />
+      <Box
+        // width={{ base: px2vw(133), md: "280px" }}
+        // height={{ base: px2vw(44), md: "87px" }}
+        marginTop={{ base: px2vw(80), md: "94px" }}
+        fontSize={{ base: "24px", md: "48px" }}
+      >
+        MASBRO-ROADMAP
+      </Box>
       <Flex
         w={{ base: px2vw(540), md: "1212px" }}
         h={{ base: px2vw(300), md: "573px" }}

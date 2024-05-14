@@ -28,9 +28,9 @@ export const blastSepolia = {
 };
 
 export const blast = {
-  id: 81457,
-  name: "Blast Mainnet",
-  network: "Blast Mainnet",
+  id: 169,
+  name: "Manta Pacific Mainnet",
+  network: "Manta Pacific Mainnet",
   nativeCurrency: {
     decimals: 18,
     name: "ETH",
@@ -38,20 +38,20 @@ export const blast = {
   },
   rpcUrls: {
     default: {
-      http: ["https://rpc.blast.io/"],
+      http: ["https://pacific-rpc.manta.network/http"],
     },
     public: {
-      http: ["https://rpc.blast.io/"],
+      http: ["https://pacific-rpc.manta.network/http"],
     },
   },
   blockExplorers: {
     etherscan: {
-      name: "Blast Explorer",
-      url: "https://blastscan.io/",
+      name: "Manta Pacific Explorer",
+      url: "https://pacific-explorer.manta.network",
     },
     default: {
-      name: "Blast Explorer",
-      url: "https://blastscan.io/",
+      name: "Manta Pacific Explorer",
+      url: "https://pacific-explorer.manta.network",
     },
   },
 };

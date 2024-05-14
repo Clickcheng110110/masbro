@@ -95,6 +95,7 @@ function Index({
         />
         <Flex gap={"12px"} alignItems="center" justifyContent="center">
           <Image
+            borderRadius={"50%"}
             w={{ base: "24px", md: "32px" }}
             h={{ base: "24px", md: "32px" }}
             src={token}

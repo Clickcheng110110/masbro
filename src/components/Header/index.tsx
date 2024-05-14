@@ -44,7 +44,7 @@ function Index() {
   const links: LinkItem[] = [
     {
       label: "Twitter",
-      path: "https://twitter.com/beggarcoinblast",
+      path: "https://twitter.com/MasbroMemeCoin",
       isLink: true,
       isDisabled: false,
     },
@@ -52,7 +52,7 @@ function Index() {
       label: "Swap",
       path: "https://app.thruster.finance/?token2=0x215F4Cd7E4e21Ac125f3135A767b2FDd9bc0f163",
       isLink: true,
-      isDisabled: false,
+      isDisabled: true,
     },
     // {
     //   label: "Telegram",
@@ -133,7 +133,7 @@ function Index() {
               src={logo}
               width={{ base: px2vw(34), md: "36px" }}
             />
-            <Text fontSize="24px">E-Beggar</Text>
+            <Text fontSize="24px">MASBRO</Text>
           </Flex>
 
           <Stack direction="row" spacing="40px" alignItems="center">
@@ -169,7 +169,7 @@ function Index() {
               src={logo}
               width={{ base: px2vw(34), md: "36px" }}
             />
-            <Text fontSize="24px">E-Beggar</Text>
+            <Text fontSize="24px">MASBRO</Text>
           </Flex>
 
           <Stack direction="row" spacing="40px" alignItems="center">

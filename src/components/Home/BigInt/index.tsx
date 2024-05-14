@@ -91,7 +91,7 @@ function Index() {
         fontWeight="400"
         textAlign="center"
       >
-        2,343 e-Beggars Minted
+        2,343 MASBROs Minted
       </Text>
       <Progress
         colorScheme="yellow"

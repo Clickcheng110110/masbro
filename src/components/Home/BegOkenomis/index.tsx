@@ -47,15 +47,14 @@ function Index() {
       alignItems="center"
       position="relative"
     >
-      <Image
-        zIndex={0}
-        w={{ base: px2vw(265), md: "535x" }}
-        h={{ base: px2vw(44), md: "70px" }}
-        src={title}
-        alt="title"
-        objectFit="contain"
-        marginTop={{ base: px2vw(80), md: "121px" }}
-      />
+      <Box
+        // width={{ base: px2vw(133), md: "280px" }}
+        // height={{ base: px2vw(44), md: "87px" }}
+        marginTop={{ base: px2vw(80), md: "94px" }}
+        fontSize={{ base: "24px", md: "48px" }}
+      >
+        MASBRO-OKENOMIS
+      </Box>
       <Flex
         flexDirection="column"
         alignItems="center"
@@ -78,7 +77,7 @@ function Index() {
           lineHeight={{ base: px2vw(17), md: "32px" }}
           fontWeight="400"
         >
-          Beg Supply
+          Total Supply
         </Text>
         <Box
           marginTop={{ base: px2vw(12), md: "30px" }}
@@ -98,7 +97,7 @@ function Index() {
               fontWeight="400"
               lineHeight={{ base: px2vw(46), md: "80px" }}
             >
-              1,000,000,000,000
+              1,000,000,000
             </Text>
           </Flex>
         </Box>
@@ -113,14 +112,14 @@ function Index() {
           right="404px"
           src={BEG_1}
         />
-        <Text
+        {/* <Text
           marginTop={{ base: px2vw(12), md: "38px" }}
           color="#FFF"
           fontSize={{ base: "16px", md: "32px" }}
           fontWeight="400"
         >
           No Points, No Taxes, No Bullshit. It’s that simple.
-        </Text>
+        </Text> */}
         {/* <SimpleGrid
           display={{ base: "none", md: "grid" }}
           columns={5}

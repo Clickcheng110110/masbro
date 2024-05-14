@@ -21,7 +21,6 @@ import { ContractsProvider } from "@/context/ContractsContext";
 
 import "react-toastify/dist/ReactToastify.css";
 import "@/styles/globals.css";
-import { useEffect } from "react";
 
 import { blast, blastSepolia } from "@/config/chains";
 import { isDev } from "@/config";
@@ -69,8 +68,11 @@ function App({ Component, pageProps }: AppProps) {
       fontFamily="VonwaonBitmap"
     >
       <Head>
-        <title>E-Beggar</title>
-        <meta name="description" content="E-Beggar Official website" />
+        <title>MASBRO</title>
+        <meta
+          name="description"
+          content="a project by Manta's earliest founder"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

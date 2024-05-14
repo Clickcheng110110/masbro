@@ -7,19 +7,19 @@ import px2vw from "@/theme/utils/px2vw";
 
 const card_1 = {
   title: "Phase 1",
-  context: "MEME",
+  context: "MASBRO",
 };
 const card_2 = {
   title: "Phase 2",
-  context: "Eat Shit Points",
+  context: "NGOPI MASBRO",
 };
 const card_3 = {
   title: "Phase 3",
-  context: "Save Pacman",
+  context: "MASBRO is CULTURE",
 };
 const card_4 = {
   title: "Phase 4",
-  context: "Masbro for Everything",
+  context: "CHILL is HEAL",
 };
 
 function Index() {

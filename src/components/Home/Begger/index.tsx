@@ -137,7 +137,7 @@ function Index() {
           lineHeight={{ base: "20px", md: "32px" }}
           fontWeight="400"
         >
-          Dive into Masbro
+          MASBRO is US
         </Text>
         <Text
           color="#FFC300"
@@ -145,7 +145,7 @@ function Index() {
           lineHeight={{ base: "20px", md: "32px" }}
           fontWeight="400"
         >
-          Woof-Woof Woof-Woof
+          NO MASBRO NO PARTY
         </Text>
         <Text
           zIndex={9}

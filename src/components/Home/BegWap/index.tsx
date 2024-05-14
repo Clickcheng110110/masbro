@@ -313,6 +313,7 @@ function Index() {
         </Flex>
         <TokenInput
           isShowMax
+          isReadOnly
           name="input"
           control={control}
           title="You pay"

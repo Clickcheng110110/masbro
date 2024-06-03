@@ -62,7 +62,7 @@ function Index() {
     },
     {
       label: "Dexscreener",
-      path: "https://dexscreener.com/manta/0xd6d69586c079c0b453aabb4dfbe328db043e8c94",
+      path: "https://dexscreener.com/manta/0xcbdf05fd6216c9d3a2780e564886bb54ddac1831",
       isLink: true,
       isDisabled: false,
     },

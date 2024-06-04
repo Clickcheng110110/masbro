@@ -50,7 +50,7 @@ function Index() {
     },
     {
       label: "Swap",
-      path: "https://quickswap.exchange/#/swap?swapIndex=2&currency1=0x92736C28A60Fc9D0cd46231962b73f4bd2359004",
+      path: "https://app.gullnetwork.com/swap?inputCurrency=ETH&outputCurrency=0x92736C28A60Fc9D0cd46231962b73f4bd2359004",
       isLink: true,
       isDisabled: false,
     },
